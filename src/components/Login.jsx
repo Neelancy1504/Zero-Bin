@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { Box, Button, Card, TextField, Typography, Alert } from "@mui/material";
 import { Link, useNavigate } from "react-router-dom";
-import supabase from "../../../zerobin/helpers/supabase";
+import supabase from "../../helpers/supabase";
 
 const Login = () => {
   const [email, setEmail] = useState("");
@@ -74,13 +74,13 @@ const Login = () => {
             sx={{
               "& .MuiOutlinedInput-root": {
                 "& fieldset": {
-                  borderColor: "rgba(0, 255, 149, 0.2)",
+                  borderColor: "#2E7D32",
                 },
                 "&:hover fieldset": {
-                  borderColor: "rgba(0, 255, 149, 0.4)",
+                  borderColor: "#2E7D32",
                 },
                 "&.Mui-focused fieldset": {
-                  borderColor: "#00ff95",
+                  borderColor: "#2E7D32",
                 },
               },
             }}
@@ -94,13 +94,13 @@ const Login = () => {
             sx={{
               "& .MuiOutlinedInput-root": {
                 "& fieldset": {
-                  borderColor: "rgba(0, 255, 149, 0.2)",
+                  borderColor: "#2E7D32",
                 },
                 "&:hover fieldset": {
-                  borderColor: "rgba(0, 255, 149, 0.4)",
+                  borderColor: "#2E7D32",
                 },
                 "&.Mui-focused fieldset": {
-                  borderColor: "#00ff95",
+                  borderColor: "#2E7D32",
                 },
               },
             }}
@@ -121,7 +121,7 @@ const Login = () => {
           sx={{
             mt: 3,
             textAlign: "center",
-            color: "rgba(255, 255, 255, 0.7)",
+            color: "grey",
           }}
         >
           Don't have an account?{" "}

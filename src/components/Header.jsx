@@ -6,14 +6,50 @@ import {
   Toolbar,
   Typography,
   Avatar,
+  Menu,
+  MenuItem,
+  ListItemIcon,
 } from "@mui/material";
-import { useNavigate } from "react-router-dom";
-import supabase from "../../../zerobin/helpers/supabase";
+import { useNavigate, useLocation } from "react-router-dom";
+import supabase from "../../helpers/supabase";
+import LocalShippingIcon from '@mui/icons-material/LocalShipping';
+import PersonIcon from '@mui/icons-material/Person';
+import EmojiEventsIcon from '@mui/icons-material/EmojiEvents';
 // import logo from "../assets/your-logo.svg"; // Uncomment and add your logo
 
 const Header = () => {
   const navigate = useNavigate();
+  const location = useLocation();
   const [user, setUser] = useState(null);
+  const [anchorEl, setAnchorEl] = useState(null);
+  const open = Boolean(anchorEl);
+
+  const handleClick = (event) => {
+    setAnchorEl(event.currentTarget);
+  };
+
+  const handleClose = () => {
+    setAnchorEl(null);
+  };
+
+  const handleMenuItemClick = (path) => {
+    navigate(path);
+    handleClose();
+  };
+
+  const scrollToSection = (sectionId) => {
+    if (location.pathname !== '/') {
+      navigate('/', { state: { fromHeader: sectionId } });
+    } else {
+      const element = document.getElementById(sectionId);
+      if (element) {
+        element.scrollIntoView({ behavior: 'smooth' });
+        if (sectionId === 'services') {
+          navigate('.', { state: { fromHeader: 'services' }, replace: true });
+        }
+      }
+    }
+  };
 
   useEffect(() => {
     // Get initial user
@@ -57,21 +93,97 @@ const Header = () => {
           </Typography>
         </Box>
 
-        {/* Buttons Section */}
-        <Box sx={{ display: "flex", gap: 2 }}>
+        {/* Navigation Links */}
+        <Box sx={{ display: "flex", gap: 3, alignItems: "center" }}>
+          <Button
+            color="inherit"
+            onClick={() => scrollToSection('services')}
+            sx={{
+              '&:hover': {
+                background: 'rgba(46, 125, 50, 0.08)',
+              },
+            }}
+          >
+            Our Services
+          </Button>
+          <Button
+            color="inherit"
+            onClick={() => scrollToSection('get-started')}
+            sx={{
+              '&:hover': {
+                background: 'rgba(46, 125, 50, 0.08)',
+              },
+            }}
+          >
+            Services
+          </Button>
+          <Button
+            color="inherit"
+            onClick={() => scrollToSection('direct-help')}
+            sx={{
+              '&:hover': {
+                background: 'rgba(46, 125, 50, 0.08)',
+              },
+            }}
+          >
+            Direct Help
+          </Button>
+
+          {/* User Section */}
           {user ? (
-            <Avatar
-              sx={{
-                cursor: "pointer",
-                bgcolor: "#2E7D32",
-                "&:hover": {
-                  boxShadow: "0 2px 8px rgba(46, 125, 50, 0.25)",
-                },
-              }}
-              onClick={() => navigate("/profile")}
-            >
-              {user.email[0].toUpperCase()}
-            </Avatar>
+            <>
+              <Avatar
+                sx={{
+                  cursor: "pointer",
+                  bgcolor: "#2E7D32",
+                  "&:hover": {
+                    boxShadow: "0 2px 8px rgba(46, 125, 50, 0.25)",
+                  },
+                }}
+                onClick={handleClick}
+              >
+                {user.email[0].toUpperCase()}
+              </Avatar>
+              <Menu
+                anchorEl={anchorEl}
+                open={open}
+                onClose={handleClose}
+                onClick={handleClose}
+                PaperProps={{
+                  elevation: 0,
+                  sx: {
+                    overflow: 'visible',
+                    filter: 'drop-shadow(0px 2px 8px rgba(0,0,0,0.12))',
+                    mt: 1.5,
+                    '& .MuiMenuItem-root': {
+                      px: 2.5,
+                      py: 1.5,
+                    },
+                  },
+                }}
+                transformOrigin={{ horizontal: 'right', vertical: 'top' }}
+                anchorOrigin={{ horizontal: 'right', vertical: 'bottom' }}
+              >
+                <MenuItem onClick={() => handleMenuItemClick('/track')}>
+                  <ListItemIcon>
+                    <LocalShippingIcon fontSize="small" sx={{ color: '#2E7D32' }} />
+                  </ListItemIcon>
+                  Track My Product
+                </MenuItem>
+                <MenuItem onClick={() => handleMenuItemClick('/profile')}>
+                  <ListItemIcon>
+                    <PersonIcon fontSize="small" sx={{ color: '#2E7D32' }} />
+                  </ListItemIcon>
+                  My Profile
+                </MenuItem>
+                <MenuItem onClick={() => handleMenuItemClick('/ecopoints')}>
+                  <ListItemIcon>
+                    <EmojiEventsIcon fontSize="small" sx={{ color: '#2E7D32' }} />
+                  </ListItemIcon>
+                  My EcoPoints
+                </MenuItem>
+              </Menu>
+            </>
           ) : (
             <>
               <Button

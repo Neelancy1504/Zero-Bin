@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { Box, Button, Card, TextField, Typography, Alert } from "@mui/material";
 import { Link, useNavigate } from "react-router-dom";
-import supabase from "../../../zerobin/helpers/supabase";
+import supabase from "../../helpers/supabase";
 
 const Signup = () => {
   const [email, setEmail] = useState("");
@@ -34,8 +34,7 @@ const Signup = () => {
         display: "flex",
         alignItems: "center",
         justifyContent: "center",
-        background:
-          "linear-gradient(180deg, rgba(0,0,0,1) 0%, rgba(0,20,20,1) 100%)",
+        background:"linear-gradient(180deg, #FFFFFF 0%, #F1F8E9 100%)",
       }}
     >
       <Card
@@ -43,10 +42,10 @@ const Signup = () => {
           p: 4,
           maxWidth: "400px",
           width: "90%",
-          background: "rgba(0, 0, 0, 0.6)",
-          border: "1px solid rgba(0, 255, 149, 0.1)",
+          background: "#FFFFFF",
+          border: "1px solid rgba(46, 125, 50, 0.12)",
           borderRadius: 4,
-          boxShadow: "0 0 20px rgba(0, 255, 149, 0.1)",
+          boxShadow: "0 2px 12px rgba(0, 0, 0, 0.08)",
         }}
       >
         <Typography
@@ -55,10 +54,7 @@ const Signup = () => {
             textAlign: "center",
             mb: 4,
             fontWeight: "bold",
-            background: "linear-gradient(45deg, #00ff95 30%, #00e5ff 90%)",
-            WebkitBackgroundClip: "text",
-            WebkitTextFillColor: "transparent",
-            textShadow: "0 0 10px rgba(0, 255, 149, 0.3)",
+            color: "#2E7D32",
           }}
         >
           Create Account
@@ -76,10 +72,10 @@ const Signup = () => {
             sx={{
               "& .MuiOutlinedInput-root": {
                 "& fieldset": {
-                  borderColor: "rgba(0, 255, 149, 0.2)",
+                  borderColor: "#2E7D32",
                 },
                 "&:hover fieldset": {
-                  borderColor: "rgba(0, 255, 149, 0.4)",
+                  borderColor: "#2E7D32",
                 },
                 "&.Mui-focused fieldset": {
                   borderColor: "#00ff95",
@@ -96,10 +92,10 @@ const Signup = () => {
             sx={{
               "& .MuiOutlinedInput-root": {
                 "& fieldset": {
-                  borderColor: "rgba(0, 255, 149, 0.2)",
+                  borderColor: "#2E7D32",
                 },
                 "&:hover fieldset": {
-                  borderColor: "rgba(0, 255, 149, 0.4)",
+                  borderColor: "#2E7D32",
                 },
                 "&.Mui-focused fieldset": {
                   borderColor: "#00ff95",
@@ -116,10 +112,10 @@ const Signup = () => {
             sx={{
               "& .MuiOutlinedInput-root": {
                 "& fieldset": {
-                  borderColor: "rgba(0, 255, 149, 0.2)",
+                  borderColor: "#2E7D32",
                 },
                 "&:hover fieldset": {
-                  borderColor: "rgba(0, 255, 149, 0.4)",
+                  borderColor: "#2E7D32",
                 },
                 "&.Mui-focused fieldset": {
                   borderColor: "#00ff95",
@@ -147,14 +143,14 @@ const Signup = () => {
           sx={{
             mt: 3,
             textAlign: "center",
-            color: "rgba(255, 255, 255, 0.7)",
+            color: "grey",
           }}
         >
           Already have an account?{" "}
           <Link
             to="/login"
             style={{
-              color: "#00ff95",
+              color: "#2E7D32",
               textDecoration: "none",
               "&:hover": {
                 textDecoration: "underline",

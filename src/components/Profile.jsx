@@ -9,7 +9,7 @@ import {
   Divider,
 } from "@mui/material";
 import { useNavigate } from "react-router-dom";
-import supabase from "../../../zerobin/helpers/supabase";
+import supabase from "../../helpers/supabase";
 import LogoutIcon from "@mui/icons-material/Logout";
 
 const Profile = () => {

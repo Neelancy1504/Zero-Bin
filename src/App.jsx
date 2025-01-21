@@ -8,6 +8,8 @@ import Signup from "./components/Signup";
 import Selection from "./components/Selection";
 import Service from "./components/Service";
 import Profile from "./components/Profile";
+import DirectHelp from "./components/DirectHelp";
+import EcoPoints from "./components/EcoPoints";
 import "./App.css";
 
 // Create a Material Design 3 dark theme with neon accents
@@ -134,6 +136,7 @@ function App() {
                 >
                   <Hero />
                   <Services />
+                  <DirectHelp />
                 </main>
               }
             />
@@ -142,6 +145,7 @@ function App() {
             <Route path="/services" element={<Selection />} />
             <Route path="/service" element={<Service />} />
             <Route path="/profile" element={<Profile />} />
+            <Route path="/ecopoints" element={<EcoPoints />} />
           </Routes>
         </div>
       </ThemeProvider>
