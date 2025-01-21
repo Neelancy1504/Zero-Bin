@@ -1,7 +1,32 @@
-import { Box, Button, Card, TextField, Typography } from "@mui/material";
-import { Link } from "react-router-dom";
+import { useState } from "react";
+import { Box, Button, Card, TextField, Typography, Alert } from "@mui/material";
+import { Link, useNavigate } from "react-router-dom";
+import supabase from "../../../zerobin/helpers/supabase";
 
 const Login = () => {
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const [message, setMessage] = useState("");
+  const [loading, setLoading] = useState(false);
+  const navigate = useNavigate();
+
+  const handleLogin = async (e) => {
+    e.preventDefault();
+    setLoading(true);
+    try {
+      const { error } = await supabase.auth.signInWithPassword({
+        email,
+        password,
+      });
+      if (error) throw error;
+      navigate("/"); // Redirect to home page after successful login
+    } catch (error) {
+      setMessage(error.message);
+    } finally {
+      setLoading(false);
+    }
+  };
+
   return (
     <Box
       sx={{
@@ -9,8 +34,7 @@ const Login = () => {
         display: "flex",
         alignItems: "center",
         justifyContent: "center",
-        background:
-          "linear-gradient(180deg, rgba(0,0,0,1) 0%, rgba(0,20,20,1) 100%)",
+        background: "linear-gradient(180deg, #FFFFFF 0%, #F1F8E9 100%)",
       }}
     >
       <Card
@@ -18,10 +42,10 @@ const Login = () => {
           p: 4,
           maxWidth: "400px",
           width: "90%",
-          background: "rgba(0, 0, 0, 0.6)",
-          border: "1px solid rgba(0, 255, 149, 0.1)",
+          background: "#FFFFFF",
+          border: "1px solid rgba(46, 125, 50, 0.12)",
           borderRadius: 4,
-          boxShadow: "0 0 20px rgba(0, 255, 149, 0.1)",
+          boxShadow: "0 2px 12px rgba(0, 0, 0, 0.08)",
         }}
       >
         <Typography
@@ -30,10 +54,7 @@ const Login = () => {
             textAlign: "center",
             mb: 4,
             fontWeight: "bold",
-            background: "linear-gradient(45deg, #00ff95 30%, #00e5ff 90%)",
-            WebkitBackgroundClip: "text",
-            WebkitTextFillColor: "transparent",
-            textShadow: "0 0 10px rgba(0, 255, 149, 0.3)",
+            color: "#2E7D32",
           }}
         >
           Welcome Back
@@ -41,12 +62,15 @@ const Login = () => {
 
         <Box
           component="form"
+          onSubmit={handleLogin}
           sx={{ display: "flex", flexDirection: "column", gap: 3 }}
         >
           <TextField
             label="Email"
-            variant="outlined"
-            fullWidth
+            type="email"
+            value={email}
+            onChange={(e) => setEmail(e.target.value)}
+            required
             sx={{
               "& .MuiOutlinedInput-root": {
                 "& fieldset": {
@@ -64,8 +88,9 @@ const Login = () => {
           <TextField
             label="Password"
             type="password"
-            variant="outlined"
-            fullWidth
+            value={password}
+            onChange={(e) => setPassword(e.target.value)}
+            required
             sx={{
               "& .MuiOutlinedInput-root": {
                 "& fieldset": {
@@ -80,8 +105,15 @@ const Login = () => {
               },
             }}
           />
-          <Button variant="contained" size="large" fullWidth sx={{ mt: 2 }}>
-            Login
+          {message && <Alert severity="error">{message}</Alert>}
+          <Button
+            variant="contained"
+            size="large"
+            fullWidth
+            type="submit"
+            disabled={loading}
+          >
+            {loading ? "Logging in..." : "Login"}
           </Button>
         </Box>
 
@@ -96,7 +128,7 @@ const Login = () => {
           <Link
             to="/signup"
             style={{
-              color: "#00ff95",
+              color: "#2E7D32",
               textDecoration: "none",
               "&:hover": {
                 textDecoration: "underline",

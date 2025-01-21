@@ -58,14 +58,13 @@ const LocationCard = ({ location }) => (
     sx={{
       display: "flex",
       mb: 3,
-      background: "rgba(0, 0, 0, 0.6)",
-      border: "1px solid rgba(0, 255, 149, 0.1)",
+      background: "#FFFFFF",
+      border: "1px solid rgba(46, 125, 50, 0.12)",
       borderRadius: 4,
       overflow: "hidden",
       transition: "all 0.3s ease-in-out",
       "&:hover": {
-        boxShadow: "0 0 20px rgba(0, 255, 149, 0.2)",
-        border: "1px solid rgba(0, 255, 149, 0.3)",
+        boxShadow: "0 4px 20px rgba(46, 125, 50, 0.15)",
       },
     }}
   >
@@ -93,22 +92,23 @@ const LocationCard = ({ location }) => (
             icon={<LocationOnIcon />}
             label={location.distance}
             sx={{
-              background: "rgba(0, 255, 149, 0.1)",
-              border: "1px solid rgba(0, 255, 149, 0.3)",
+              background: "rgba(46, 125, 50, 0.08)",
+              border: "1px solid rgba(46, 125, 50, 0.2)",
+              color: "#2E7D32",
             }}
           />
         </Box>
 
         <Stack spacing={1} sx={{ mb: 3 }}>
-          <Typography variant="body2" color="rgba(255, 255, 255, 0.7)">
+          <Typography variant="body2" color="#566573">
             <LocationOnIcon sx={{ mr: 1, fontSize: "small" }} />
             {location.address}
           </Typography>
-          <Typography variant="body2" color="rgba(255, 255, 255, 0.7)">
+          <Typography variant="body2" color="#566573">
             <PhoneIcon sx={{ mr: 1, fontSize: "small" }} />
             {location.phone}
           </Typography>
-          <Typography variant="body2" color="rgba(255, 255, 255, 0.7)">
+          <Typography variant="body2" color="#566573">
             <EmailIcon sx={{ mr: 1, fontSize: "small" }} />
             {location.email}
           </Typography>
@@ -119,11 +119,11 @@ const LocationCard = ({ location }) => (
             variant="outlined"
             startIcon={<DirectionsIcon />}
             sx={{
-              borderColor: "rgba(0, 255, 149, 0.3)",
-              color: "#00ff95",
+              borderColor: "#2E7D32",
+              color: "#2E7D32",
               "&:hover": {
-                borderColor: "#00ff95",
-                boxShadow: "0 0 10px rgba(0, 255, 149, 0.3)",
+                borderColor: "#1B5E20",
+                backgroundColor: "rgba(46, 125, 50, 0.08)",
               },
             }}
           >
@@ -158,8 +158,7 @@ const Service = () => {
         minHeight: "90vh",
         py: 8,
         px: 4,
-        background:
-          "linear-gradient(180deg, rgba(0,0,0,1) 0%, rgba(0,20,20,1) 100%)",
+        background: "#FFFFFF",
       }}
     >
       <Box sx={{ maxWidth: 1200, mx: "auto" }}>
@@ -169,10 +168,9 @@ const Service = () => {
             textAlign: "center",
             mb: 6,
             fontWeight: "bold",
-            background: "linear-gradient(45deg, #00ff95 30%, #00e5ff 90%)",
+            background: "linear-gradient(45deg, #2E7D32 30%, #4CAF50 90%)",
             WebkitBackgroundClip: "text",
             WebkitTextFillColor: "transparent",
-            textShadow: "0 0 20px rgba(0, 255, 149, 0.3)",
           }}
         >
           {title}
@@ -182,7 +180,7 @@ const Service = () => {
           variant="h5"
           sx={{
             mb: 4,
-            color: "rgba(255, 255, 255, 0.9)",
+            color: "#566573",
             textAlign: "center",
           }}
         >

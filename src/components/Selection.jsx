@@ -74,18 +74,16 @@ const ServiceCard = ({ icon, title, description }) => {
         alignItems: "center",
         padding: 3,
         textAlign: "center",
-        background: "rgba(0, 0, 0, 0.6)",
-        border: "1px solid rgba(0, 255, 149, 0.1)",
+        background: "#FFFFFF",
+        border: "1px solid rgba(46, 125, 50, 0.12)",
         borderRadius: 4,
         transition: "all 0.3s ease-in-out",
         cursor: "pointer",
         "&:hover": {
           transform: "translateY(-8px)",
-          boxShadow: "0 0 20px rgba(0, 255, 149, 0.3)",
-          border: "1px solid rgba(0, 255, 149, 0.5)",
+          boxShadow: "0 4px 20px rgba(46, 125, 50, 0.15)",
           "& .icon": {
-            color: "#00ff95",
-            textShadow: "0 0 20px rgba(0, 255, 149, 0.5)",
+            color: "#2E7D32",
           },
         },
       }}
@@ -93,7 +91,7 @@ const ServiceCard = ({ icon, title, description }) => {
       <Box
         className="icon"
         sx={{
-          color: "rgba(255, 255, 255, 0.8)",
+          color: "#4CAF50",
           mb: 2,
           transition: "all 0.3s ease-in-out",
         }}
@@ -105,9 +103,7 @@ const ServiceCard = ({ icon, title, description }) => {
         sx={{
           mb: 1,
           fontWeight: "bold",
-          background: "linear-gradient(45deg, #00ff95 30%, #00e5ff 90%)",
-          WebkitBackgroundClip: "text",
-          WebkitTextFillColor: "transparent",
+          color: "#2E7D32",
         }}
       >
         {title}
@@ -115,7 +111,7 @@ const ServiceCard = ({ icon, title, description }) => {
       <Typography
         variant="body2"
         sx={{
-          color: "rgba(255, 255, 255, 0.7)",
+          color: "#566573",
         }}
       >
         {description}
@@ -137,8 +133,7 @@ const Selection = () => {
         minHeight: "90vh",
         py: 8,
         px: 4,
-        background:
-          "linear-gradient(180deg, rgba(0,0,0,1) 0%, rgba(0,20,20,1) 100%)",
+        background: "#FFFFFF",
       }}
     >
       <Typography
@@ -147,10 +142,9 @@ const Selection = () => {
           textAlign: "center",
           mb: 6,
           fontWeight: "bold",
-          background: "linear-gradient(45deg, #00ff95 30%, #00e5ff 90%)",
+          background: "linear-gradient(45deg, #2E7D32 30%, #4CAF50 90%)",
           WebkitBackgroundClip: "text",
           WebkitTextFillColor: "transparent",
-          textShadow: "0 0 20px rgba(0, 255, 149, 0.3)",
         }}
       >
         Select a Service

@@ -7,6 +7,7 @@ import Login from "./components/Login";
 import Signup from "./components/Signup";
 import Selection from "./components/Selection";
 import Service from "./components/Service";
+import Profile from "./components/Profile";
 import "./App.css";
 
 // Create a Material Design 3 dark theme with neon accents
@@ -42,13 +43,19 @@ const theme = createTheme({
     },
   },
   palette: {
-    mode: "dark",
+    mode: "light",
     primary: {
-      main: "#00ff95", // Neon green
+      main: "#2E7D32", // Forest green
+      light: "#4CAF50", // Light green
+      dark: "#1B5E20", // Dark green
     },
     background: {
-      default: "#000000", // Changed to pure black
-      paper: "#000000", // Changed to pure black
+      default: "#FFFFFF",
+      paper: "#FFFFFF",
+    },
+    text: {
+      primary: "#1C2833", // Dark gray for better readability
+      secondary: "#566573", // Medium gray for secondary text
     },
   },
   components: {
@@ -60,19 +67,20 @@ const theme = createTheme({
           padding: "8px 24px",
         },
         contained: {
-          background: "linear-gradient(45deg, #00ff95 30%, #00e5ff 90%)",
-          boxShadow: "0 0 10px #00ff95, 0 0 20px #00ff95, 0 0 40px #00ff95",
-          color: "#000",
+          background: "linear-gradient(45deg, #2E7D32 30%, #4CAF50 90%)",
+          boxShadow: "0 2px 8px rgba(46, 125, 50, 0.25)",
+          color: "#FFF",
           "&:hover": {
-            boxShadow: "0 0 15px #00ff95, 0 0 25px #00ff95, 0 0 45px #00ff95",
+            background: "linear-gradient(45deg, #1B5E20 30%, #2E7D32 90%)",
+            boxShadow: "0 4px 12px rgba(46, 125, 50, 0.35)",
           },
         },
         outlined: {
-          borderColor: "#00ff95",
-          color: "#00ff95",
+          borderColor: "#2E7D32",
+          color: "#2E7D32",
           "&:hover": {
-            borderColor: "#00ff95",
-            boxShadow: "0 0 10px #00ff95, 0 0 20px #00ff95",
+            borderColor: "#1B5E20",
+            backgroundColor: "rgba(46, 125, 50, 0.08)",
           },
         },
       },
@@ -80,8 +88,19 @@ const theme = createTheme({
     MuiAppBar: {
       styleOverrides: {
         root: {
-          backgroundColor: "#000000",
-          borderBottom: "1px solid rgba(0, 255, 149, 0.1)",
+          backgroundColor: "#FFFFFF",
+          borderBottom: "1px solid rgba(46, 125, 50, 0.12)",
+          color: "#1C2833",
+        },
+      },
+    },
+    MuiCard: {
+      styleOverrides: {
+        root: {
+          boxShadow: "0 2px 12px rgba(0, 0, 0, 0.08)",
+          "&:hover": {
+            boxShadow: "0 4px 20px rgba(0, 0, 0, 0.12)",
+          },
         },
       },
     },
@@ -93,7 +112,13 @@ function App() {
     <Router>
       <ThemeProvider theme={theme}>
         <div
-          style={{ width: "100%", minHeight: "100vh", margin: 0, padding: 0 }}
+          style={{
+            width: "100%",
+            minHeight: "100vh",
+            margin: 0,
+            padding: 0,
+            background: "#FFFFFF",
+          }}
         >
           <Header />
           <Routes>
@@ -116,6 +141,7 @@ function App() {
             <Route path="/signup" element={<Signup />} />
             <Route path="/services" element={<Selection />} />
             <Route path="/service" element={<Service />} />
+            <Route path="/profile" element={<Profile />} />
           </Routes>
         </div>
       </ThemeProvider>

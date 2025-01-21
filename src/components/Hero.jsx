@@ -1,4 +1,5 @@
 import { Box, Typography } from "@mui/material";
+import FloatingIcons from "./FloatingIcons";
 
 const Hero = () => {
   return (
@@ -10,22 +11,31 @@ const Hero = () => {
         justifyContent: "center",
         flexDirection: "column",
         gap: 4,
-        padding: "2rem",
-        background:
-          "linear-gradient(180deg, rgba(0,0,0,1) 0%, rgba(0,20,20,1) 100%)",
+        // padding: "2rem",
+        background: "linear-gradient(180deg, #FFFFFF 0%, #F1F8E9 100%)",
+        overflow: "hidden",
+
+        width: "100vw",
+        margin: 0,
+        padding: 0,
+        position: "relative",
+        left: "50%",
+        transform: "translateX(-50%)",
+        boxSizing: "border-box",
       }}
     >
+      <FloatingIcons />
       <Typography
         variant="h1"
         sx={{
           fontSize: { xs: "2.5rem", md: "4rem" },
           fontWeight: "bold",
           textAlign: "center",
-          background: "linear-gradient(45deg, #00ff95 30%, #00e5ff 90%)",
+          background: "linear-gradient(45deg, #2E7D32 30%, #4CAF50 90%)",
           WebkitBackgroundClip: "text",
           WebkitTextFillColor: "transparent",
-          textShadow: "0 0 20px rgba(0, 255, 149, 0.5)",
-          animation: "glow 2s ease-in-out infinite alternate",
+          position: "relative",
+          zIndex: 1,
         }}
       >
         Your Waste is Someone's Gold
@@ -36,12 +46,13 @@ const Hero = () => {
         sx={{
           fontSize: { xs: "1.5rem", md: "2rem" },
           textAlign: "center",
-          color: "rgba(255, 255, 255, 0.8)",
+          color: "#566573",
           maxWidth: "800px",
-          textShadow: "0 0 10px rgba(0, 255, 149, 0.3)",
+          position: "relative",
+          zIndex: 1,
         }}
       >
-        Secure your digital world with end-to-end encrypted messaging
+        Join the movement for a cleaner, greener future
       </Typography>
     </Box>
   );

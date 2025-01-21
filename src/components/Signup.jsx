@@ -1,7 +1,32 @@
-import { Box, Button, Card, TextField, Typography } from "@mui/material";
-import { Link } from "react-router-dom";
+import { useState } from "react";
+import { Box, Button, Card, TextField, Typography, Alert } from "@mui/material";
+import { Link, useNavigate } from "react-router-dom";
+import supabase from "../../../zerobin/helpers/supabase";
 
 const Signup = () => {
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const [message, setMessage] = useState("");
+  const [loading, setLoading] = useState(false);
+  const navigate = useNavigate();
+
+  const handleSignUp = async (e) => {
+    e.preventDefault();
+    setLoading(true);
+    try {
+      const { error } = await supabase.auth.signUp({
+        email,
+        password,
+      });
+      if (error) throw error;
+      setMessage("Check your email for the confirmation link!");
+    } catch (error) {
+      setMessage(error.message);
+    } finally {
+      setLoading(false);
+    }
+  };
+
   return (
     <Box
       sx={{
@@ -41,6 +66,7 @@ const Signup = () => {
 
         <Box
           component="form"
+          onSubmit={handleSignUp}
           sx={{ display: "flex", flexDirection: "column", gap: 3 }}
         >
           <TextField
@@ -63,8 +89,10 @@ const Signup = () => {
           />
           <TextField
             label="Email"
-            variant="outlined"
-            fullWidth
+            type="email"
+            value={email}
+            onChange={(e) => setEmail(e.target.value)}
+            required
             sx={{
               "& .MuiOutlinedInput-root": {
                 "& fieldset": {
@@ -82,8 +110,9 @@ const Signup = () => {
           <TextField
             label="Password"
             type="password"
-            variant="outlined"
-            fullWidth
+            value={password}
+            onChange={(e) => setPassword(e.target.value)}
+            required
             sx={{
               "& .MuiOutlinedInput-root": {
                 "& fieldset": {
@@ -98,8 +127,19 @@ const Signup = () => {
               },
             }}
           />
-          <Button variant="contained" size="large" fullWidth sx={{ mt: 2 }}>
-            Sign Up
+          {message && (
+            <Alert severity={message.includes("Check") ? "success" : "error"}>
+              {message}
+            </Alert>
+          )}
+          <Button
+            variant="contained"
+            size="large"
+            fullWidth
+            type="submit"
+            disabled={loading}
+          >
+            {loading ? "Signing up..." : "Sign Up"}
           </Button>
         </Box>
 

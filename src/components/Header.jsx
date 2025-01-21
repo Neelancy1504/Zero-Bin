@@ -1,9 +1,35 @@
-import { AppBar, Box, Button, Toolbar, Typography } from "@mui/material";
+import { useState, useEffect } from "react";
+import {
+  AppBar,
+  Box,
+  Button,
+  Toolbar,
+  Typography,
+  Avatar,
+} from "@mui/material";
 import { useNavigate } from "react-router-dom";
+import supabase from "../../../zerobin/helpers/supabase";
 // import logo from "../assets/your-logo.svg"; // Uncomment and add your logo
 
 const Header = () => {
   const navigate = useNavigate();
+  const [user, setUser] = useState(null);
+
+  useEffect(() => {
+    // Get initial user
+    supabase.auth.getUser().then(({ data: { user } }) => {
+      setUser(user);
+    });
+
+    // Listen for auth changes
+    const {
+      data: { subscription },
+    } = supabase.auth.onAuthStateChange((_event, session) => {
+      setUser(session?.user ?? null);
+    });
+
+    return () => subscription.unsubscribe();
+  }, []);
 
   return (
     <AppBar position="static" elevation={0}>
@@ -22,10 +48,9 @@ const Header = () => {
             component="div"
             sx={{
               fontWeight: "bold",
-              background: "linear-gradient(45deg, #00ff95 30%, #00e5ff 90%)",
+              background: "linear-gradient(45deg, #2E7D32 30%, #4CAF50 90%)",
               WebkitBackgroundClip: "text",
               WebkitTextFillColor: "transparent",
-              textShadow: "0 0 10px rgba(0, 255, 149, 0.5)",
             }}
           >
             ZeroBin
@@ -34,24 +59,41 @@ const Header = () => {
 
         {/* Buttons Section */}
         <Box sx={{ display: "flex", gap: 2 }}>
-          <Button
-            variant="outlined"
-            sx={{
-              transition: "all 0.3s ease-in-out",
-            }}
-            onClick={() => navigate("/signup")}
-          >
-            Sign Up
-          </Button>
-          <Button
-            variant="contained"
-            sx={{
-              transition: "all 0.3s ease-in-out",
-            }}
-            onClick={() => navigate("/login")}
-          >
-            Login
-          </Button>
+          {user ? (
+            <Avatar
+              sx={{
+                cursor: "pointer",
+                bgcolor: "#2E7D32",
+                "&:hover": {
+                  boxShadow: "0 2px 8px rgba(46, 125, 50, 0.25)",
+                },
+              }}
+              onClick={() => navigate("/profile")}
+            >
+              {user.email[0].toUpperCase()}
+            </Avatar>
+          ) : (
+            <>
+              <Button
+                variant="outlined"
+                sx={{
+                  transition: "all 0.3s ease-in-out",
+                }}
+                onClick={() => navigate("/signup")}
+              >
+                Sign Up
+              </Button>
+              <Button
+                variant="contained"
+                sx={{
+                  transition: "all 0.3s ease-in-out",
+                }}
+                onClick={() => navigate("/login")}
+              >
+                Login
+              </Button>
+            </>
+          )}
         </Box>
       </Toolbar>
     </AppBar>
