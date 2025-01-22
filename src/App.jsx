@@ -122,7 +122,8 @@ function App() {
             minHeight: "100vh",
             margin: 0,
             padding: 0,
-            background: "linear-gradient(to bottom, #FFFFFF, #A8E6A2)", // White to light green gradient
+            // background: "linear-gradient(to bottom, #FFFFFF, #A8E6A2)",
+            background: "#FFFFFF", // White to light green gradient
             backgroundAttachment: "fixed", // Fixes the gradient background
             backgroundSize: "cover", // Ensures the gradient covers the entire viewport
           }}
