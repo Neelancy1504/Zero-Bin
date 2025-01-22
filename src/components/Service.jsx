@@ -68,7 +68,8 @@ const realNGOs = [
   {
     id: 1,
     name: "Chintan Environmental Research and Action Group",
-    image: "https://www.chintan-india.org/sites/default/files/2019-10/Chintan_old_1.png",
+    image:
+      "https://www.chintan-india.org/sites/default/files/2019-10/Chintan_old_1.png",
     cause: "Waste Management & Recycler Rights",
     impact:
       "Supporting over 25,000 waste pickers in India, managing 30+ tons of waste daily",
@@ -91,7 +92,8 @@ const realNGOs = [
   {
     id: 3,
     name: "Swechha",
-    image: "https://swechha.in/wp-content/uploads/2020/01/swechha-site-logo-1-scaled.jpg",
+    image:
+      "https://swechha.in/wp-content/uploads/2020/01/swechha-site-logo-1-scaled.jpg",
     cause: "Environmental Conservation & Youth Development",
     impact:
       "Engaging youth in environmental action, managing waste segregation programs in Delhi",
@@ -135,27 +137,27 @@ const realNGOs = [
   },
 ];
 
-const GOOGLE_MAPS_API_KEY = 'AlzaSyhH1ZfFRZTEQmHZ0OYefkmdpkVGXW5Zxys'; // Replace with your actual API key
+const GOOGLE_MAPS_API_KEY = "AlzaSyhH1ZfFRZTEQmHZ0OYefkmdpkVGXW5Zxys"; // Replace with your actual API key
 
 // Add these utility functions for API calls
 const findPlaceFromText = async (searchText) => {
   try {
     const response = await fetch(
       `https://maps.gomaps.pro/maps/api/place/findplacefromtext/json?` +
-      `input=${encodeURIComponent(searchText)}&` +
-      `inputtype=textquery&` +
-      `fields=formatted_address,geometry,name,place_id&` +
-      `key=${GOOGLE_MAPS_API_KEY}`
+        `input=${encodeURIComponent(searchText)}&` +
+        `inputtype=textquery&` +
+        `fields=formatted_address,geometry,name,place_id&` +
+        `key=${GOOGLE_MAPS_API_KEY}`
     );
 
     if (!response.ok) {
-      throw new Error('Failed to find place');
+      throw new Error("Failed to find place");
     }
 
     const data = await response.json();
     return data.candidates[0]; // Return the first match
   } catch (error) {
-    console.error('Error finding place:', error);
+    console.error("Error finding place:", error);
     throw error;
   }
 };
@@ -164,20 +166,20 @@ const searchNearbyPlaces = async (latitude, longitude, searchQuery) => {
   try {
     const response = await fetch(
       `https://maps.gomaps.pro/maps/api/place/nearbysearch/json?` +
-      `location=${latitude},${longitude}&` +
-      `radius=20000&` + // 20km in meters
-      `keyword=${encodeURIComponent(searchQuery)}&` +
-      `key=${GOOGLE_MAPS_API_KEY}`
+        `location=${latitude},${longitude}&` +
+        `radius=20000&` + // 20km in meters
+        `keyword=${encodeURIComponent(searchQuery)}&` +
+        `key=${GOOGLE_MAPS_API_KEY}`
     );
 
     if (!response.ok) {
-      throw new Error('Failed to fetch nearby places');
+      throw new Error("Failed to fetch nearby places");
     }
 
     const data = await response.json();
     return data.results;
   } catch (error) {
-    console.error('Error fetching nearby places:', error);
+    console.error("Error fetching nearby places:", error);
     throw error;
   }
 };
@@ -186,19 +188,19 @@ const getPlaceDetails = async (placeId) => {
   try {
     const response = await fetch(
       `https://maps.gomaps.pro/maps/api/place/details/json?` +
-      `place_id=${placeId}&` +
-      `fields=name,formatted_address,formatted_phone_number,website,photos,geometry&` +
-      `key=${GOOGLE_MAPS_API_KEY}`
+        `place_id=${placeId}&` +
+        `fields=name,formatted_address,formatted_phone_number,website,photos,geometry&` +
+        `key=${GOOGLE_MAPS_API_KEY}`
     );
 
     if (!response.ok) {
-      throw new Error('Failed to fetch place details');
+      throw new Error("Failed to fetch place details");
     }
 
     const data = await response.json();
     return data.result;
   } catch (error) {
-    console.error('Error fetching place details:', error);
+    console.error("Error fetching place details:", error);
     return null;
   }
 };
@@ -227,12 +229,15 @@ const LocationCard = ({ location }) => (
     <Box sx={{ display: "flex", flexDirection: "column", width: "100%" }}>
       <CardContent sx={{ flex: "1 0 auto", p: 3 }}>
         <Box sx={{ display: "flex", justifyContent: "space-between", mb: 2 }}>
-          <Typography variant="h5" sx={{
-            fontWeight: "bold",
-            background: "linear-gradient(45deg, #00ff95 30%, #00e5ff 90%)",
-            WebkitBackgroundClip: "text",
-            WebkitTextFillColor: "transparent",
-          }}>
+          <Typography
+            variant="h5"
+            sx={{
+              fontWeight: "bold",
+              background: "linear-gradient(45deg, #00ff95 30%, #00e5ff 90%)",
+              WebkitBackgroundClip: "text",
+              WebkitTextFillColor: "transparent",
+            }}
+          >
             {location.name}
           </Typography>
         </Box>
@@ -260,7 +265,13 @@ const LocationCard = ({ location }) => (
           <Button
             variant="outlined"
             startIcon={<DirectionsIcon />}
-            onClick={() => window.open(`https://www.google.com/maps/dir/?api=1&destination=${encodeURIComponent(location.formatted_address)}`)}
+            onClick={() =>
+              window.open(
+                `https://www.google.com/maps/dir/?api=1&destination=${encodeURIComponent(
+                  location.formatted_address
+                )}`
+              )
+            }
             sx={{
               borderColor: "#2E7D32",
               color: "#2E7D32",
@@ -276,7 +287,9 @@ const LocationCard = ({ location }) => (
             <Button
               variant="contained"
               startIcon={<PhoneIcon />}
-              onClick={() => window.open(`tel:${location.formatted_phone_number}`)}
+              onClick={() =>
+                window.open(`tel:${location.formatted_phone_number}`)
+              }
               sx={{
                 background: "linear-gradient(45deg, #00ff95 30%, #00e5ff 90%)",
                 color: "#000",
@@ -404,21 +417,21 @@ const LocationSearchDialog = ({ onLocationSelect, onClose }) => {
           onLocationSelect(place);
         }
       } catch (error) {
-        console.error('Error in search:', error);
+        console.error("Error in search:", error);
       }
     }
   };
 
   return (
-    <Dialog 
-      open={true} 
+    <Dialog
+      open={true}
       onClose={onClose}
       PaperProps={{
         sx: {
           zIndex: 1300,
-          position: 'relative',
-          minWidth: '300px'
-        }
+          position: "relative",
+          minWidth: "300px",
+        },
       }}
     >
       <DialogTitle>Find Recycling Centers Near You</DialogTitle>
@@ -434,7 +447,7 @@ const LocationSearchDialog = ({ onLocationSelect, onClose }) => {
           value={searchText}
           onChange={(e) => setSearchText(e.target.value)}
           onKeyPress={(e) => {
-            if (e.key === 'Enter') {
+            if (e.key === "Enter") {
               handleSearch();
             }
           }}
@@ -460,7 +473,7 @@ const LocationSearchDialog = ({ onLocationSelect, onClose }) => {
   );
 };
 
-const styles = document.createElement('style');
+const styles = document.createElement("style");
 styles.textContent = `
   .pac-container {
     z-index: 1400 !important;
@@ -483,10 +496,10 @@ const Service = () => {
   const handleLocationSelect = async (place) => {
     try {
       setLoading(true);
-      
+
       const { geometry, place_id } = place;
       const { lat, lng } = geometry.location;
-      
+
       // Search for nearby recycling centers
       const results = await searchNearbyPlaces(
         lat,
@@ -495,28 +508,68 @@ const Service = () => {
       );
 
       if (!results || results.length === 0) {
-        setError('No recycling centers found in this area');
+        setError("No recycling centers found in this area");
         setLoading(false);
         return;
       }
 
-      // Get detailed information for each place
+      // Check if results already contain sufficient details
+      const validResults = results.slice(0, 5);
+
+      // If additional details are needed
       const detailedResults = await Promise.all(
-        results.slice(0, 5).map(result => getPlaceDetails(result.place_id))
+        validResults.map((result) =>
+          result.detailsAvailable ? result : getPlaceDetails(result.place_id)
+        )
       );
 
-      // Filter out any null results from failed detail fetches
-      const validResults = detailedResults.filter(result => result !== null);
-      
-      setRecyclingCenters(validResults);
+      setRecyclingCenters(detailedResults.filter((result) => result !== null));
       setShowLocationDialog(false);
       setLoading(false);
     } catch (error) {
-      console.error('Error in handleLocationSelect:', error);
-      setError('Failed to find recycling centers. Please try again.');
+      console.error("Error in handleLocationSelect:", error);
+      setError("Failed to find recycling centers. Please try again.");
       setLoading(false);
     }
   };
+
+  // const handleLocationSelect = async (place) => {
+  //   try {
+  //     setLoading(true);
+
+  //     const { geometry, place_id } = place;
+  //     const { lat, lng } = geometry.location;
+
+  //     // Search for nearby recycling centers
+  //     const results = await searchNearbyPlaces(
+  //       lat,
+  //       lng,
+  //       `${title.toLowerCase()} recycling center`
+  //     );
+
+  //     if (!results || results.length === 0) {
+  //       setError('No recycling centers found in this area');
+  //       setLoading(false);
+  //       return;
+  //     }
+
+  //     // Get detailed information for each place
+  //     const detailedResults = await Promise.all(
+  //       results.slice(0, 5).map(result => getPlaceDetails(result.place_id))
+  //     );
+
+  //     // Filter out any null results from failed detail fetches
+  //     const validResults = detailedResults.filter(result => result !== null);
+
+  //     setRecyclingCenters(validResults);
+  //     setShowLocationDialog(false);
+  //     setLoading(false);
+  //   } catch (error) {
+  //     console.error('Error in handleLocationSelect:', error);
+  //     setError('Failed to find recycling centers. Please try again.');
+  //     setLoading(false);
+  //   }
+  // };
 
   return (
     <Box
@@ -542,13 +595,11 @@ const Service = () => {
           {title}
         </Typography>
 
-        {!isCommunityImpact && (
-          showLocationDialog && (
-            <LocationSearchDialog 
-              onLocationSelect={handleLocationSelect}
-              onClose={() => setShowLocationDialog(false)}
-            />
-          )
+        {!isCommunityImpact && showLocationDialog && (
+          <LocationSearchDialog
+            onLocationSelect={handleLocationSelect}
+            onClose={() => setShowLocationDialog(false)}
+          />
         )}
 
         {loading ? (
@@ -556,16 +607,16 @@ const Service = () => {
             <CircularProgress />
           </Box>
         ) : error ? (
-          <Typography color="error" textAlign="center">{error}</Typography>
+          <Typography color="error" textAlign="center">
+            {error}
+          </Typography>
         ) : (
           <Box>
-            {isCommunityImpact ? (
-              realNGOs.map((ngo) => <NGOCard key={ngo.id} ngo={ngo} />)
-            ) : (
-              recyclingCenters.map((center, index) => (
-                <LocationCard key={index} location={center} />
-              ))
-            )}
+            {isCommunityImpact
+              ? realNGOs.map((ngo) => <NGOCard key={ngo.id} ngo={ngo} />)
+              : recyclingCenters.map((center, index) => (
+                  <LocationCard key={index} location={center} />
+                ))}
           </Box>
         )}
       </Box>
