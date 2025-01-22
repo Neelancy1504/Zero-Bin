@@ -1,6 +1,6 @@
 import { Box, Button, Typography } from "@mui/material";
 import { useNavigate } from "react-router-dom";
-import RecyclingIcon from '@mui/icons-material/Recycling';
+import RecyclingIcon from "@mui/icons-material/Recycling";
 //import leaf from "../images/leaf.jpg"; // Make sure the path is correct
 
 const Hero = () => {
@@ -50,7 +50,16 @@ const Hero = () => {
           <br />
           Asks For
           <br />
-          <Box component="span" sx={{ backgroundColor: "#32a137" , color: "white", borderRadius: "10px" , paddingLeft: "5px" , paddingRight: "5px"}}>
+          <Box
+            component="span"
+            sx={{
+              backgroundColor: "#32a137",
+              color: "white",
+              borderRadius: "10px",
+              paddingLeft: "5px",
+              paddingRight: "5px",
+            }}
+          >
             Positive
           </Box>
         </Typography>
@@ -120,7 +129,15 @@ const Hero = () => {
         }}
       >
         <Box sx={{ maxWidth: "400px" }}>
-          <Box sx={{ gap: 4, mb: 3 }}>
+          <Box
+            sx={{
+              // gap: 1,
+              mb: 1,
+              display: "flex",
+              flexDirection: "column",
+              alignItems: "center",
+            }}
+          >
             <Box
               sx={{
                 width: 70,
@@ -132,14 +149,31 @@ const Hero = () => {
                 justifyContent: "center",
               }}
             >
-              <RecyclingIcon sx={{ color: "#2E7D32", fontSize: 45}} />
+              <RecyclingIcon sx={{ color: "#2E7D32", fontSize: 45 }} />
             </Box>
-            <Typography variant="h5" sx={{ fontWeight: 700, color: "#333", marginTop: "20px" }}>
+            <Typography
+              variant="h5"
+              sx={{ fontWeight: 700, color: "#333", marginTop: "20px" }}
+            >
               ZeroBin Vision
             </Typography>
           </Box>
-          
+
           <Typography
+            variant="body1"
+            sx={{
+              color: "#666",
+              lineHeight: 1.8,
+              textAlign: "justify", // Add this line
+            }}
+          >
+            ZeroBin fosters a perpetual sense of green responsibility in
+            individuals, communities, and business houses alike for them to
+            critically think, perceive possibilities, resolve conflicts and
+            generate hypotheses to become self-aware and mindful of the impact
+            of their acts on the earth and its inevitable consequences.
+          </Typography>
+          {/* <Typography
             variant="body1"
             sx={{
               color: "#666",
@@ -151,7 +185,7 @@ const Hero = () => {
             critically think, perceive possibilities, resolve conflicts and
             generate hypotheses to become self-aware and mindful of the impact
             of their acts on the earth and its inevitable consequences.
-          </Typography>
+          </Typography> */}
         </Box>
       </Box>
     </Box>
