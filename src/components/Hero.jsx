@@ -1,59 +1,159 @@
-import { Box, Typography } from "@mui/material";
-import FloatingIcons from "./FloatingIcons";
+import { Box, Button, Typography } from "@mui/material";
+import { useNavigate } from "react-router-dom";
+import RecyclingIcon from '@mui/icons-material/Recycling';
+//import leaf from "../images/leaf.jpg"; // Make sure the path is correct
 
 const Hero = () => {
+  const navigate = useNavigate();
+
   return (
     <Box
       sx={{
-        minHeight: "50vh",
+        minHeight: "90vh",
         display: "flex",
-        alignItems: "center",
-        justifyContent: "center",
-        flexDirection: "column",
-        gap: 4,
-        // padding: "2rem",
-        background: "linear-gradient(180deg, #FFFFFF 0%, #F1F8E9 100%)",
-        overflow: "hidden",
-
-        width: "100vw",
-        margin: 0,
-        padding: 0,
-        position: "relative",
-        left: "50%",
-        transform: "translateX(-50%)",
-        boxSizing: "border-box",
+        flexDirection: "row",
+        bgcolor: "#fff",
       }}
     >
-      <FloatingIcons />
-      <Typography
-        variant="h1"
+      {/* First Section - Title and CTA */}
+      <Box
         sx={{
-          fontSize: { xs: "2.5rem", md: "4rem" },
-          fontWeight: "bold",
-          textAlign: "center",
-          background: "linear-gradient(45deg, #2E7D32 30%, #4CAF50 90%)",
-          WebkitBackgroundClip: "text",
-          WebkitTextFillColor: "transparent",
-          position: "relative",
-          zIndex: 1,
+          flex: 1,
+          p: 4,
+          display: "flex",
+          flexDirection: "column",
+          justifyContent: "center",
+          gap: 3,
+          borderRight: "1px solid #eee",
         }}
       >
-        Your Waste is Someone's Gold
-      </Typography>
+        <Typography
+          variant="subtitle1"
+          sx={{
+            color: "#32a137",
+            fontWeight: 700,
+            marginLeft: "5px",
+          }}
+        >
+          Sustainability
+        </Typography>
 
-      <Typography
-        variant="h2"
+        <Typography
+          variant="h2"
+          sx={{
+            fontWeight: 600,
+            color: "#333",
+            lineHeight: 1.2,
+          }}
+        >
+          The Planet
+          <br />
+          Asks For
+          <br />
+          <Box component="span" sx={{ backgroundColor: "#32a137" , color: "white", borderRadius: "10px" , paddingLeft: "5px" , paddingRight: "5px"}}>
+            Positive
+          </Box>
+        </Typography>
+
+        <Typography
+          variant="body1"
+          sx={{
+            color: "#666",
+            maxWidth: "400px",
+            textAlign: "justify",
+          }}
+        >
+          It's time to run your company in a socially and environmentally
+          responsible manner. The demand for environmentally friendly products
+          is increasing, and the public is interested in learning more about how
+          you run your company.
+        </Typography>
+
+        <Box sx={{ mt: 2 }}>
+          <Button
+            variant="contained"
+            sx={{
+              bgcolor: "#2E7D32",
+              px: 4,
+              py: 1.5,
+              borderRadius: "4px",
+              "&:hover": {
+                bgcolor: "#1B5E20",
+              },
+            }}
+            onClick={() => navigate("/get-started")}
+          >
+            Get Started
+          </Button>
+        </Box>
+      </Box>
+
+      {/* Second Section - Image */}
+      <Box
         sx={{
-          fontSize: { xs: "1.5rem", md: "2rem" },
-          textAlign: "center",
-          color: "#566573",
-          maxWidth: "800px",
+          flex: 1,
           position: "relative",
-          zIndex: 1,
+          borderRight: "1px solid #eee",
         }}
       >
-        Join the movement for a cleaner, greener future
-      </Typography>
+        <Box
+          component="img"
+          src="https://i.pinimg.com/736x/9d/0b/51/9d0b519f24646d2b1b428d0c3c9657af.jpg"
+          alt="Green leaves"
+          sx={{
+            width: "100%",
+            height: "100%",
+            objectFit: "cover",
+          }}
+        />
+      </Box>
+
+      {/* Third Section - Vision */}
+      <Box
+        sx={{
+          flex: 1,
+          p: 4,
+          display: "flex",
+          flexDirection: "column",
+          justifyContent: "center",
+          alignItems: "flex-start",
+        }}
+      >
+        <Box sx={{ maxWidth: "400px" }}>
+          <Box sx={{ display: "flex", alignItems: "center", gap: 4, mb: 3 }}>
+            <Box
+              sx={{
+                width: 48,
+                height: 48,
+                borderRadius: "50%",
+                bgcolor: "#E8F5E9",
+                display: "flex",
+                alignItems: "center",
+                justifyContent: "center",
+              }}
+            >
+              <RecyclingIcon sx={{ color: "#2E7D32", fontSize: 28 }} />
+            </Box>
+            <Typography variant="h5" sx={{ fontWeight: 600, color: "#333" }}>
+              ZeroBin Vision
+            </Typography>
+          </Box>
+          
+          <Typography
+            variant="body1"
+            sx={{
+              color: "#666",
+              lineHeight: 1.8,
+            }}
+          >
+            ZeroBin fosters a perpetual sense of green responsibility in
+            individuals, communities, and business houses alike for them to
+            critically think, perceive possibilities, resolve conflicts and
+            generate hypotheses to become self-aware and mindful of the impact
+            of their acts on the earth and its inevitable consequences.
+          </Typography>
+        </Box>
+      </Box>
     </Box>
   );
 };

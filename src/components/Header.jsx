@@ -68,145 +68,160 @@ const Header = () => {
   }, []);
 
   return (
-    <AppBar position="static" elevation={0}>
-      <Toolbar sx={{ justifyContent: "space-between" }}>
-        {/* Logo Section */}
-        <Box
-          sx={{
-            display: "flex",
-            alignItems: "center",
-            cursor: "pointer",
-          }}
-          onClick={() => navigate("/")}
-        >
+    <AppBar
+      position="sticky"
+      sx={{
+        backgroundColor: "white",
+        boxShadow: "none",
+        borderBottom: "1px solid #eee",
+      }}
+    >
+      <Toolbar
+        sx={{
+          display: "flex",
+          justifyContent: "space-between",
+          px: { xs: 2, md: 4 },
+          py: 1,
+        }}
+      >
+        {/* Logo and Brand */}
+        <Box sx={{ display: "flex", alignItems: "center", gap: 1 }}>
           <Typography
             variant="h6"
-            component="div"
             sx={{
-              fontWeight: "bold",
-              background: "linear-gradient(45deg, #2E7D32 30%, #4CAF50 90%)",
-              WebkitBackgroundClip: "text",
-              WebkitTextFillColor: "transparent",
+              fontWeight: 600,
+              color: "#1B5E20",
+              cursor: "pointer",
             }}
+            onClick={() => navigate("/")}
           >
             ZeroBin
           </Typography>
         </Box>
 
         {/* Navigation Links */}
-        <Box sx={{ display: "flex", gap: 3, alignItems: "center" }}>
+        <Box sx={{ display: { xs: "none", md: "flex" }, gap: 3 , fontSize: "10px"}}>
           <Button
             color="inherit"
-            onClick={() => scrollToSection('services')}
-            sx={{
-              '&:hover': {
-                background: 'rgba(46, 125, 50, 0.08)',
-              },
-            }}
+            sx={{ color: "#333" }}
+            onClick={() => navigate("/")}
+          >
+            Home
+          </Button>
+          <Button
+            color="inherit"
+            sx={{ color: "#333" }}
+            onClick={() => navigate("/services")}
           >
             Our Services
           </Button>
           <Button
             color="inherit"
-            onClick={() => scrollToSection('get-started')}
-            sx={{
-              '&:hover': {
-                background: 'rgba(46, 125, 50, 0.08)',
-              },
-            }}
+            sx={{ color: "#333" }}
+            onClick={() => navigate("/about")}
           >
-            Services
+            About Us
           </Button>
           <Button
             color="inherit"
-            onClick={() => scrollToSection('direct-help')}
-            sx={{
-              '&:hover': {
-                background: 'rgba(46, 125, 50, 0.08)',
-              },
-            }}
+            sx={{ color: "#333" }}
+            onClick={() => navigate("/insights")}
           >
-            Direct Help
+            Insights
           </Button>
-
-          {/* User Section */}
-          {user ? (
-            <>
-              <Avatar
-                sx={{
-                  cursor: "pointer",
-                  bgcolor: "#2E7D32",
-                  "&:hover": {
-                    boxShadow: "0 2px 8px rgba(46, 125, 50, 0.25)",
-                  },
-                }}
-                onClick={handleClick}
-              >
-                {user.email[0].toUpperCase()}
-              </Avatar>
-              <Menu
-                anchorEl={anchorEl}
-                open={open}
-                onClose={handleClose}
-                onClick={handleClose}
-                PaperProps={{
-                  elevation: 0,
-                  sx: {
-                    overflow: 'visible',
-                    filter: 'drop-shadow(0px 2px 8px rgba(0,0,0,0.12))',
-                    mt: 1.5,
-                    '& .MuiMenuItem-root': {
-                      px: 2.5,
-                      py: 1.5,
-                    },
-                  },
-                }}
-                transformOrigin={{ horizontal: 'right', vertical: 'top' }}
-                anchorOrigin={{ horizontal: 'right', vertical: 'bottom' }}
-              >
-                <MenuItem onClick={() => handleMenuItemClick('/track')}>
-                  <ListItemIcon>
-                    <LocalShippingIcon fontSize="small" sx={{ color: '#2E7D32' }} />
-                  </ListItemIcon>
-                  Track My Product
-                </MenuItem>
-                <MenuItem onClick={() => handleMenuItemClick('/profile')}>
-                  <ListItemIcon>
-                    <PersonIcon fontSize="small" sx={{ color: '#2E7D32' }} />
-                  </ListItemIcon>
-                  My Profile
-                </MenuItem>
-                <MenuItem onClick={() => handleMenuItemClick('/ecopoints')}>
-                  <ListItemIcon>
-                    <EmojiEventsIcon fontSize="small" sx={{ color: '#2E7D32' }} />
-                  </ListItemIcon>
-                  My EcoPoints
-                </MenuItem>
-              </Menu>
-            </>
-          ) : (
-            <>
-              <Button
-                variant="outlined"
-                sx={{
-                  transition: "all 0.3s ease-in-out",
-                }}
-                onClick={() => navigate("/signup")}
-              >
-                Sign Up
-              </Button>
-              <Button
-                variant="contained"
-                sx={{
-                  transition: "all 0.3s ease-in-out",
-                }}
-                onClick={() => navigate("/login")}
-              >
-                Login
-              </Button>
-            </>
-          )}
+          <Button
+            color="inherit"
+            sx={{ color: "#333" }}
+            onClick={() => navigate("/faqs")}
+          >
+            FAQs
+          </Button>
+          <Button
+            color="inherit"
+            sx={{ color: "#333" }}
+            onClick={() => navigate("/contact")}
+          >
+            Contact Us
+          </Button>
         </Box>
+
+        {/* User Section */}
+        {user ? (
+          <>
+            <Avatar
+              sx={{
+                cursor: "pointer",
+                bgcolor: "#2E7D32",
+                "&:hover": {
+                  boxShadow: "0 2px 8px rgba(46, 125, 50, 0.25)",
+                },
+              }}
+              onClick={handleClick}
+            >
+              {user.email[0].toUpperCase()}
+            </Avatar>
+            <Menu
+              anchorEl={anchorEl}
+              open={open}
+              onClose={handleClose}
+              onClick={handleClose}
+              PaperProps={{
+                elevation: 0,
+                sx: {
+                  overflow: 'visible',
+                  filter: 'drop-shadow(0px 2px 8px rgba(0,0,0,0.12))',
+                  mt: 1.5,
+                  '& .MuiMenuItem-root': {
+                    px: 2.5,
+                    py: 1.5,
+                  },
+                },
+              }}
+              transformOrigin={{ horizontal: 'right', vertical: 'top' }}
+              anchorOrigin={{ horizontal: 'right', vertical: 'bottom' }}
+            >
+              <MenuItem onClick={() => handleMenuItemClick('/track')}>
+                <ListItemIcon>
+                  <LocalShippingIcon fontSize="small" sx={{ color: '#2E7D32' }} />
+                </ListItemIcon>
+                Track My Product
+              </MenuItem>
+              <MenuItem onClick={() => handleMenuItemClick('/profile')}>
+                <ListItemIcon>
+                  <PersonIcon fontSize="small" sx={{ color: '#2E7D32' }} />
+                </ListItemIcon>
+                My Profile
+              </MenuItem>
+              <MenuItem onClick={() => handleMenuItemClick('/ecopoints')}>
+                <ListItemIcon>
+                  <EmojiEventsIcon fontSize="small" sx={{ color: '#2E7D32' }} />
+                </ListItemIcon>
+                My EcoPoints
+              </MenuItem>
+            </Menu>
+          </>
+        ) : (
+          <>
+            <Button
+              variant="outlined"
+              sx={{
+                transition: "all 0.3s ease-in-out",
+              }}
+              onClick={() => navigate("/signup")}
+            >
+              Sign Up
+            </Button>
+            <Button
+              variant="contained"
+              sx={{
+                transition: "all 0.3s ease-in-out",
+              }}
+              onClick={() => navigate("/login")}
+            >
+              Login
+            </Button>
+          </>
+        )}
       </Toolbar>
     </AppBar>
   );

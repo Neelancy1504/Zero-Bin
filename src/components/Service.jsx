@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 import { useLocation } from "react-router-dom";
 import {
   Box,
@@ -10,14 +10,21 @@ import {
   Stack,
   Chip,
   CircularProgress,
+  TextField,
+  InputAdornment,
+  Dialog,
+  DialogTitle,
+  DialogContent,
+  DialogContentText,
+  DialogActions,
 } from "@mui/material";
 import DirectionsIcon from "@mui/icons-material/Directions";
 import LocalShippingIcon from "@mui/icons-material/LocalShipping";
 import PhoneIcon from "@mui/icons-material/Phone";
 import EmailIcon from "@mui/icons-material/Email";
 import LocationOnIcon from "@mui/icons-material/LocationOn";
-import VolunteerActivismIcon from '@mui/icons-material/VolunteerActivism';
-
+import VolunteerActivismIcon from "@mui/icons-material/VolunteerActivism";
+import SearchIcon from "@mui/icons-material/Search";
 
 // Mock data for nearby recycling locations
 const mockLocations = [
@@ -61,9 +68,10 @@ const realNGOs = [
   {
     id: 1,
     name: "Chintan Environmental Research and Action Group",
-    image: "/images/chintan.webp",
+    image: "https://www.chintan-india.org/sites/default/files/2019-10/Chintan_old_1.png",
     cause: "Waste Management & Recycler Rights",
-    impact: "Supporting over 25,000 waste pickers in India, managing 30+ tons of waste daily",
+    impact:
+      "Supporting over 25,000 waste pickers in India, managing 30+ tons of waste daily",
     donationNeeded: "Support Needed",
     website: "https://www.chintan-india.org",
     email: "info@chintan-india.org",
@@ -71,9 +79,11 @@ const realNGOs = [
   {
     id: 2,
     name: "Centre for Science and Environment (CSE)",
-    image: "https://www.cseindia.org/assets/images/cse-logo.jpg",
+    image:
+      "https://pbs.twimg.com/profile_images/1035005681311653891/yNJVGno8_400x400.jpg",
     cause: "Environmental Research & Waste Management",
-    impact: "Leading research and implementation of sustainable waste management practices across India",
+    impact:
+      "Leading research and implementation of sustainable waste management practices across India",
     donationNeeded: "Support Needed",
     website: "https://www.cseindia.org",
     email: "cse@cseindia.org",
@@ -81,9 +91,10 @@ const realNGOs = [
   {
     id: 3,
     name: "Swechha",
-    image: "https://swechha.in/wp-content/uploads/2020/03/swechha-logo.png",
+    image: "https://swechha.in/wp-content/uploads/2020/01/swechha-site-logo-1-scaled.jpg",
     cause: "Environmental Conservation & Youth Development",
-    impact: "Engaging youth in environmental action, managing waste segregation programs in Delhi",
+    impact:
+      "Engaging youth in environmental action, managing waste segregation programs in Delhi",
     donationNeeded: "Support Needed",
     website: "https://swechha.in",
     email: "contact@swechha.in",
@@ -93,7 +104,8 @@ const realNGOs = [
     name: "Waste Warriors",
     image: "https://wastewarriors.org/wp-content/themes/waste/images/logo.png",
     cause: "Solid Waste Management",
-    impact: "Managing waste in Dehradun, Dharamshala, and around Jim Corbett National Park",
+    impact:
+      "Managing waste in Dehradun, Dharamshala, and around Jim Corbett National Park",
     donationNeeded: "Support Needed",
     website: "https://wastewarriors.org",
     email: "info@wastewarriors.org",
@@ -101,9 +113,11 @@ const realNGOs = [
   {
     id: 5,
     name: "Daily Dump",
-    image: "https://dailydump.org/wp-content/uploads/2019/03/daily-dump-logo.png",
+    image:
+      "https://dailydump.org/wp-content/uploads/2019/03/daily-dump-logo.png",
     cause: "Home Composting Solutions",
-    impact: "Helped over 60,000 households manage organic waste through composting",
+    impact:
+      "Helped over 60,000 households manage organic waste through composting",
     donationNeeded: "Support Needed",
     website: "https://dailydump.org",
     email: "contact@dailydump.org",
@@ -111,14 +125,83 @@ const realNGOs = [
   {
     id: 6,
     name: "Saahas Zero Waste",
-    image: "https://saahaszerowaste.com/wp-content/uploads/2019/03/szw-logo.png",
+    image:
+      "https://saahaszerowaste.com/wp-content/uploads/2019/03/szw-logo.png",
     cause: "Zero Waste Management Solutions",
     impact: "Managing 80+ tons of waste daily across multiple Indian cities",
     donationNeeded: "Support Needed",
     website: "https://saahaszerowaste.com",
     email: "info@saahaszerowaste.com",
-  }
+  },
 ];
+
+const GOOGLE_MAPS_API_KEY = 'AlzaSyhH1ZfFRZTEQmHZ0OYefkmdpkVGXW5Zxys'; // Replace with your actual API key
+
+// Add these utility functions for API calls
+const findPlaceFromText = async (searchText) => {
+  try {
+    const response = await fetch(
+      `https://maps.gomaps.pro/maps/api/place/findplacefromtext/json?` +
+      `input=${encodeURIComponent(searchText)}&` +
+      `inputtype=textquery&` +
+      `fields=formatted_address,geometry,name,place_id&` +
+      `key=${GOOGLE_MAPS_API_KEY}`
+    );
+
+    if (!response.ok) {
+      throw new Error('Failed to find place');
+    }
+
+    const data = await response.json();
+    return data.candidates[0]; // Return the first match
+  } catch (error) {
+    console.error('Error finding place:', error);
+    throw error;
+  }
+};
+
+const searchNearbyPlaces = async (latitude, longitude, searchQuery) => {
+  try {
+    const response = await fetch(
+      `https://maps.gomaps.pro/maps/api/place/nearbysearch/json?` +
+      `location=${latitude},${longitude}&` +
+      `radius=20000&` + // 20km in meters
+      `keyword=${encodeURIComponent(searchQuery)}&` +
+      `key=${GOOGLE_MAPS_API_KEY}`
+    );
+
+    if (!response.ok) {
+      throw new Error('Failed to fetch nearby places');
+    }
+
+    const data = await response.json();
+    return data.results;
+  } catch (error) {
+    console.error('Error fetching nearby places:', error);
+    throw error;
+  }
+};
+
+const getPlaceDetails = async (placeId) => {
+  try {
+    const response = await fetch(
+      `https://maps.gomaps.pro/maps/api/place/details/json?` +
+      `place_id=${placeId}&` +
+      `fields=name,formatted_address,formatted_phone_number,website,photos,geometry&` +
+      `key=${GOOGLE_MAPS_API_KEY}`
+    );
+
+    if (!response.ok) {
+      throw new Error('Failed to fetch place details');
+    }
+
+    const data = await response.json();
+    return data.result;
+  } catch (error) {
+    console.error('Error fetching place details:', error);
+    return null;
+  }
+};
 
 const LocationCard = ({ location }) => (
   <Card
@@ -135,56 +218,49 @@ const LocationCard = ({ location }) => (
       },
     }}
   >
-    <CardMedia
+    {/* <CardMedia
       component="img"
       sx={{ width: 200 }}
-      image={location.image}
+      image={location.photos?.[0]?.getUrl() || "https://source.unsplash.com/400x300/?recycling"}
       alt={location.name}
-    />
+    /> */}
     <Box sx={{ display: "flex", flexDirection: "column", width: "100%" }}>
       <CardContent sx={{ flex: "1 0 auto", p: 3 }}>
         <Box sx={{ display: "flex", justifyContent: "space-between", mb: 2 }}>
-          <Typography
-            variant="h5"
-            sx={{
-              fontWeight: "bold",
-              background: "linear-gradient(45deg, #00ff95 30%, #00e5ff 90%)",
-              WebkitBackgroundClip: "text",
-              WebkitTextFillColor: "transparent",
-            }}
-          >
+          <Typography variant="h5" sx={{
+            fontWeight: "bold",
+            background: "linear-gradient(45deg, #00ff95 30%, #00e5ff 90%)",
+            WebkitBackgroundClip: "text",
+            WebkitTextFillColor: "transparent",
+          }}>
             {location.name}
           </Typography>
-          <Chip
-            icon={<LocationOnIcon />}
-            label={location.distance}
-            sx={{
-              background: "rgba(46, 125, 50, 0.08)",
-              border: "1px solid rgba(46, 125, 50, 0.2)",
-              color: "#2E7D32",
-            }}
-          />
         </Box>
 
         <Stack spacing={1} sx={{ mb: 3 }}>
           <Typography variant="body2" color="#566573">
             <LocationOnIcon sx={{ mr: 1, fontSize: "small" }} />
-            {location.address}
+            {location.formatted_address}
           </Typography>
-          <Typography variant="body2" color="#566573">
-            <PhoneIcon sx={{ mr: 1, fontSize: "small" }} />
-            {location.phone}
-          </Typography>
-          <Typography variant="body2" color="#566573">
-            <EmailIcon sx={{ mr: 1, fontSize: "small" }} />
-            {location.email}
-          </Typography>
+          {location.formatted_phone_number && (
+            <Typography variant="body2" color="#566573">
+              <PhoneIcon sx={{ mr: 1, fontSize: "small" }} />
+              {location.formatted_phone_number}
+            </Typography>
+          )}
+          {location.website && (
+            <Typography variant="body2" color="#566573">
+              <EmailIcon sx={{ mr: 1, fontSize: "small" }} />
+              {location.website}
+            </Typography>
+          )}
         </Stack>
 
         <Box sx={{ display: "flex", gap: 2 }}>
           <Button
             variant="outlined"
             startIcon={<DirectionsIcon />}
+            onClick={() => window.open(`https://www.google.com/maps/dir/?api=1&destination=${encodeURIComponent(location.formatted_address)}`)}
             sx={{
               borderColor: "#2E7D32",
               color: "#2E7D32",
@@ -196,19 +272,22 @@ const LocationCard = ({ location }) => (
           >
             Get Directions
           </Button>
-          <Button
-            variant="contained"
-            startIcon={<LocalShippingIcon />}
-            sx={{
-              background: "linear-gradient(45deg, #00ff95 30%, #00e5ff 90%)",
-              color: "#000",
-              "&:hover": {
-                boxShadow: "0 0 15px rgba(0, 255, 149, 0.5)",
-              },
-            }}
-          >
-            Schedule Pickup
-          </Button>
+          {location.formatted_phone_number && (
+            <Button
+              variant="contained"
+              startIcon={<PhoneIcon />}
+              onClick={() => window.open(`tel:${location.formatted_phone_number}`)}
+              sx={{
+                background: "linear-gradient(45deg, #00ff95 30%, #00e5ff 90%)",
+                color: "#000",
+                "&:hover": {
+                  boxShadow: "0 0 15px rgba(0, 255, 149, 0.5)",
+                },
+              }}
+            >
+              Call Now
+            </Button>
+          )}
         </Box>
       </CardContent>
     </Box>
@@ -277,7 +356,7 @@ const NGOCard = ({ ngo }) => (
         <Box sx={{ display: "flex", gap: 2 }}>
           <Button
             variant="outlined"
-            onClick={() => window.open(ngo.website, '_blank')}
+            onClick={() => window.open(ngo.website, "_blank")}
             sx={{
               borderColor: "#2E7D32",
               color: "#2E7D32",
@@ -292,7 +371,12 @@ const NGOCard = ({ ngo }) => (
           <Button
             variant="contained"
             startIcon={<VolunteerActivismIcon />}
-            onClick={() => window.open(`mailto:${ngo.email}?subject=Donation%20Inquiry`, '_blank')}
+            onClick={() =>
+              window.open(
+                `mailto:${ngo.email}?subject=Donation%20Inquiry`,
+                "_blank"
+              )
+            }
             sx={{
               background: "linear-gradient(45deg, #00ff95 30%, #00e5ff 90%)",
               color: "#000",
@@ -309,45 +393,130 @@ const NGOCard = ({ ngo }) => (
   </Card>
 );
 
+const LocationSearchDialog = ({ onLocationSelect, onClose }) => {
+  const [searchText, setSearchText] = useState("");
+
+  const handleSearch = async () => {
+    if (searchText.trim()) {
+      try {
+        const place = await findPlaceFromText(searchText);
+        if (place) {
+          onLocationSelect(place);
+        }
+      } catch (error) {
+        console.error('Error in search:', error);
+      }
+    }
+  };
+
+  return (
+    <Dialog 
+      open={true} 
+      onClose={onClose}
+      PaperProps={{
+        sx: {
+          zIndex: 1300,
+          position: 'relative',
+          minWidth: '300px'
+        }
+      }}
+    >
+      <DialogTitle>Find Recycling Centers Near You</DialogTitle>
+      <DialogContent>
+        <DialogContentText>
+          Enter your location to find recycling centers within 20km.
+        </DialogContentText>
+        <TextField
+          fullWidth
+          margin="dense"
+          variant="outlined"
+          placeholder="Enter your location"
+          value={searchText}
+          onChange={(e) => setSearchText(e.target.value)}
+          onKeyPress={(e) => {
+            if (e.key === 'Enter') {
+              handleSearch();
+            }
+          }}
+          InputProps={{
+            startAdornment: (
+              <InputAdornment position="start">
+                <SearchIcon />
+              </InputAdornment>
+            ),
+          }}
+          sx={{ mt: 2 }}
+        />
+      </DialogContent>
+      <DialogActions>
+        <Button onClick={onClose} color="primary">
+          Cancel
+        </Button>
+        <Button onClick={handleSearch} color="primary" variant="contained">
+          Search
+        </Button>
+      </DialogActions>
+    </Dialog>
+  );
+};
+
+const styles = document.createElement('style');
+styles.textContent = `
+  .pac-container {
+    z-index: 1400 !important;
+  }
+`;
+document.head.appendChild(styles);
+
 const Service = () => {
   const location = useLocation();
   const { title } = location.state || { title: "Recycling Service" };
-  const [data, setData] = useState([]);
-  const [loading, setLoading] = useState(true);
+  const [searchLocation, setSearchLocation] = useState("");
+  const [recyclingCenters, setRecyclingCenters] = useState([]);
+  const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
+  const [showLocationDialog, setShowLocationDialog] = useState(true);
+  const mapRef = useRef(null);
+  const autocompleteRef = useRef(null);
   const isCommunityImpact = title === "Community Impact";
 
-  useEffect(() => {
-    const fetchNGOData = async () => {
-      try {
-        setLoading(true);
-        // In a real application, this would be an API call
-        // const response = await fetch('your-api-endpoint');
-        // const data = await response.json();
-        
-        // Simulating API delay
-        await new Promise(resolve => setTimeout(resolve, 1000));
-        setData(realNGOs);
+  const handleLocationSelect = async (place) => {
+    try {
+      setLoading(true);
+      
+      const { geometry, place_id } = place;
+      const { lat, lng } = geometry.location;
+      
+      // Search for nearby recycling centers
+      const results = await searchNearbyPlaces(
+        lat,
+        lng,
+        `${title.toLowerCase()} recycling center`
+      );
+
+      if (!results || results.length === 0) {
+        setError('No recycling centers found in this area');
         setLoading(false);
-      } catch (error) {
-        console.error("Error fetching NGO data:", error);
-        setError("Failed to load NGO data. Please try again later.");
-        setLoading(false);
+        return;
       }
-    };
 
-    if (isCommunityImpact) {
-      fetchNGOData();
+      // Get detailed information for each place
+      const detailedResults = await Promise.all(
+        results.slice(0, 5).map(result => getPlaceDetails(result.place_id))
+      );
+
+      // Filter out any null results from failed detail fetches
+      const validResults = detailedResults.filter(result => result !== null);
+      
+      setRecyclingCenters(validResults);
+      setShowLocationDialog(false);
+      setLoading(false);
+    } catch (error) {
+      console.error('Error in handleLocationSelect:', error);
+      setError('Failed to find recycling centers. Please try again.');
+      setLoading(false);
     }
-  }, [isCommunityImpact]);
-
-  if (error) {
-    return (
-      <Box sx={{ textAlign: 'center', py: 8 }}>
-        <Typography color="error">{error}</Typography>
-      </Box>
-    );
-  }
+  };
 
   return (
     <Box
@@ -373,28 +542,30 @@ const Service = () => {
           {title}
         </Typography>
 
-        <Typography
-          variant="h5"
-          sx={{
-            mb: 4,
-            color: "#566573",
-            textAlign: "center",
-          }}
-        >
-          {isCommunityImpact ? "Environmental NGOs Making an Impact" : "Recycling Locations Near You"}
-        </Typography>
+        {!isCommunityImpact && (
+          showLocationDialog && (
+            <LocationSearchDialog 
+              onLocationSelect={handleLocationSelect}
+              onClose={() => setShowLocationDialog(false)}
+            />
+          )
+        )}
 
         {loading ? (
-          <Box sx={{ display: 'flex', justifyContent: 'center', py: 4 }}>
+          <Box sx={{ display: "flex", justifyContent: "center", py: 4 }}>
             <CircularProgress />
           </Box>
+        ) : error ? (
+          <Typography color="error" textAlign="center">{error}</Typography>
         ) : (
           <Box>
-            {isCommunityImpact
-              ? data.map((ngo) => <NGOCard key={ngo.id} ngo={ngo} />)
-              : mockLocations.map((location) => (
-                  <LocationCard key={location.id} location={location} />
-                ))}
+            {isCommunityImpact ? (
+              realNGOs.map((ngo) => <NGOCard key={ngo.id} ngo={ngo} />)
+            ) : (
+              recyclingCenters.map((center, index) => (
+                <LocationCard key={index} location={center} />
+              ))
+            )}
           </Box>
         )}
       </Box>
