@@ -13,11 +13,11 @@ const services = [
     title: "Pickup Service",
     description: "Scheduled pickups at your convenience",
   },
-  {
-    icon: <InventoryIcon sx={{ fontSize: 40 }} />,
-    title: "Inventory Tracking",
-    description: "Real-time tracking of your recyclable inventory",
-  },
+  // {
+  //   icon: <InventoryIcon sx={{ fontSize: 40 }} />,
+  //   title: "Inventory Tracking",
+  //   description: "Real-time tracking of your recyclable inventory",
+  // },
   {
     icon: <VolunteerActivismIcon sx={{ fontSize: 40 }} />,
     title: "Community Impact",

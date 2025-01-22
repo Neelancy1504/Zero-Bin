@@ -16,18 +16,23 @@ const Footer = () => {
         color: "#333",
         borderTop: "1px solid #eee",
         width: "100%",
-        pt: 6,
-        pb: 3,
       }}
     >
-      <Box
+      <Container 
+        maxWidth={false}
         sx={{
-          maxWidth: "100%",
-          px: { xs: 2, sm: 4, md: 8 }, // Responsive padding
-          mx: "auto",
+          px: { xs: 2, md: 4 },
+          py: 6,
         }}
       >
-        <Grid container spacing={4}>
+        <Grid 
+          container 
+          spacing={4}
+          sx={{
+            maxWidth: "100%",
+            mx: "auto",
+          }}
+        >
           {/* Company Info */}
           <Grid item xs={12} md={4}>
             <Box sx={{ display: "flex", alignItems: "center", mb: 2 }}>
@@ -166,12 +171,17 @@ const Footer = () => {
         <Divider sx={{ my: 3 }} />
 
         {/* Copyright */}
-        <Box sx={{ textAlign: "center" }}>
+        <Box 
+          sx={{ 
+            textAlign: "center",
+            width: "100%",
+          }}
+        >
           <Typography variant="body2" sx={{ color: "#666" }}>
             © {new Date().getFullYear()} ZeroBin. All rights reserved.
           </Typography>
         </Box>
-      </Box>
+      </Container>
     </Box>
   );
 };

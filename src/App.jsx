@@ -11,6 +11,7 @@ import Profile from "./components/Profile";
 import DirectHelp from "./components/DirectHelp";
 import EcoPoints from "./components/EcoPoints";
 import Footer from "./components/Footer";
+import AboutUs from "./components/AboutUs";
 import "./App.css";
 
 // Create a Material Design 3 dark theme with neon accents
@@ -148,6 +149,7 @@ function App() {
             <Route path="/service" element={<Service />} />
             <Route path="/profile" element={<Profile />} />
             <Route path="/ecopoints" element={<EcoPoints />} />
+            <Route path="/about" element={<AboutUs />} />
           </Routes>
         </div>
       </ThemeProvider>
