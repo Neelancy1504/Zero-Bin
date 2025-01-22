@@ -90,7 +90,7 @@ const Header = () => {
             variant="h6"
             sx={{
               fontWeight: 600,
-              color: "#1B5E20",
+              color: "#333",
               cursor: "pointer",
             }}
             onClick={() => navigate("/")}
@@ -100,7 +100,7 @@ const Header = () => {
         </Box>
 
         {/* Navigation Links */}
-        <Box sx={{ display: { xs: "none", md: "flex" }, gap: 3 , fontSize: "10px"}}>
+        <Box sx={{ display: { xs: "none", md: "flex" }, gap: 3 }}>
           <Button
             color="inherit"
             sx={{ color: "#333" }}

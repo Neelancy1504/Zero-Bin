@@ -120,11 +120,11 @@ const Hero = () => {
         }}
       >
         <Box sx={{ maxWidth: "400px" }}>
-          <Box sx={{ display: "flex", alignItems: "center", gap: 4, mb: 3 }}>
+          <Box sx={{ gap: 4, mb: 3 }}>
             <Box
               sx={{
-                width: 48,
-                height: 48,
+                width: 70,
+                height: 70,
                 borderRadius: "50%",
                 bgcolor: "#E8F5E9",
                 display: "flex",
@@ -132,9 +132,9 @@ const Hero = () => {
                 justifyContent: "center",
               }}
             >
-              <RecyclingIcon sx={{ color: "#2E7D32", fontSize: 28 }} />
+              <RecyclingIcon sx={{ color: "#2E7D32", fontSize: 45}} />
             </Box>
-            <Typography variant="h5" sx={{ fontWeight: 600, color: "#333" }}>
+            <Typography variant="h5" sx={{ fontWeight: 700, color: "#333", marginTop: "20px" }}>
               ZeroBin Vision
             </Typography>
           </Box>

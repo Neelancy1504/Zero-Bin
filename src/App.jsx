@@ -10,6 +10,7 @@ import Service from "./components/Service";
 import Profile from "./components/Profile";
 import DirectHelp from "./components/DirectHelp";
 import EcoPoints from "./components/EcoPoints";
+import Footer from "./components/Footer";
 import "./App.css";
 
 // Create a Material Design 3 dark theme with neon accents
@@ -137,6 +138,7 @@ function App() {
                   <Hero />
                   <Services />
                   <DirectHelp />
+                  <Footer />
                 </main>
               }
             />
