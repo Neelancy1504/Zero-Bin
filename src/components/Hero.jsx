@@ -331,7 +331,7 @@ const Hero = () => {
         />
       </Box>
 
-      {/* Third Section - Vision */}
+      Third Section - Vision
       <Box
         sx={{
           ...fadeInScaleStyles,
