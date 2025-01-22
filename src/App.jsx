@@ -15,7 +15,6 @@ import AboutUs from "./components/AboutUs";
 import FAQ from "./components/FAQ";
 import "./App.css";
 
-
 // Create a Material Design 3 dark theme with neon accents
 const theme = createTheme({
   typography: {
@@ -123,9 +122,20 @@ function App() {
             minHeight: "100vh",
             margin: 0,
             padding: 0,
-            background: "#FFFFFF",
+            background: "linear-gradient(to bottom, #FFFFFF, #A8E6A2)", // White to light green gradient
+            backgroundAttachment: "fixed", // Fixes the gradient background
+            backgroundSize: "cover", // Ensures the gradient covers the entire viewport
           }}
         >
+          {/* <div
+          style={{
+            width: "100%",
+            minHeight: "100vh",
+            margin: 0,
+            padding: 0,
+            background: "linear-gradient(to bottom, #FFFFFF, #A8E6A2)", // White to light green gradient
+          }}
+        > */}
           <Header />
           <Routes>
             <Route

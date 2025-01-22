@@ -1,4 +1,4 @@
-body {
+/* body {
   margin: 0;
   padding: 0;
   min-height: 100vh;
@@ -9,6 +9,28 @@ body {
   width: 100%;
   margin: 0;
   padding: 0;
+} */
+
+body {
+  margin: 0;
+  padding: 0;
+  min-height: 100vh;
+  background: linear-gradient(
+    135deg,
+    #ffffff,
+    #dfffd6
+  ); /* White to light green gradient */
+  background-attachment: fixed; /* Keeps the gradient fixed while scrolling */
+}
+
+#root {
+  width: 100%;
+  margin: 0;
+  padding: 0;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  background: inherit; /* Inherits the gradient background from the body */
 }
 
 .logo {
