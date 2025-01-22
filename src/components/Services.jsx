@@ -168,24 +168,7 @@ const Services = () => {
           position: 'relative'
         }}
       >
-        <Button
-          variant="contained"
-          size="large"
-          sx={{
-            transition: "all 0.3s ease-in-out",
-            px: 6,
-            py: 1.5,
-            background: "linear-gradient(45deg, #2E7D32 30%, #4CAF50 90%)",
-            color: "white",
-            "&:hover": {
-              transform: "scale(1.05)",
-              boxShadow: "0 4px 20px rgba(46, 125, 50, 0.25)",
-            },
-          }}
-          onClick={() => navigate("/services")}
-        >
-          GET STARTED
-        </Button>
+
 
         {/* Popup positioned relative to the button */}
         <Snackbar

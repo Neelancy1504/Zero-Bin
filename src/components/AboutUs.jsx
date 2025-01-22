@@ -28,7 +28,7 @@ const AboutUs = () => {
         variant="body1"
         sx={{
           color: "#666",
-          maxWidth: "600px",
+          maxWidth: "1000px",
           textAlign: "justify",
           lineHeight: "1.6",
           fontSize: "20px",

@@ -91,8 +91,7 @@ const DirectHelp = () => {
     <Box
       id="direct-help"
       sx={{
-        py: 8,
-        px: 2,
+        paddingBottom: 0
       }}
     >
       <Typography
@@ -104,6 +103,7 @@ const DirectHelp = () => {
           background: "linear-gradient(45deg, #2E7D32 30%, #4CAF50 90%)",
           WebkitBackgroundClip: "text",
           WebkitTextFillColor: "transparent",
+          
         }}
       >
         Direct Help

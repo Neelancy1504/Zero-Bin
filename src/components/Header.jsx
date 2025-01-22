@@ -136,13 +136,6 @@ const Header = () => {
           >
             FAQs
           </Button>
-          <Button
-            color="inherit"
-            sx={{ color: "#333" }}
-            onClick={() => navigate("/contact")}
-          >
-            Contact Us
-          </Button>
         </Box>
 
         {/* User Section */}
