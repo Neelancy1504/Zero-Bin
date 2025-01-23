@@ -4,29 +4,65 @@ import { Link, useNavigate } from "react-router-dom";
 import supabase from "../../helpers/supabase";
 
 const Signup = () => {
+  const [name, setname] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [message, setMessage] = useState("");
   const [loading, setLoading] = useState(false);
   const navigate = useNavigate();
 
+  // const handleSignUp = async (e) => {
+  //   e.preventDefault();
+  //   setLoading(true);
+  //   try {
+  //     const { error } = await supabase.auth.signUp({
+  //       email,
+  //       password,
+  //     });
+  //     if (error) throw error;
+  //     setMessage("Check your email for the confirmation link!");
+  //   } catch (error) {
+  //     setMessage(error.message);
+  //   } finally {
+  //     setLoading(false);
+  //   }
+  // };
+
   const handleSignUp = async (e) => {
     e.preventDefault();
     setLoading(true);
     try {
-      const { error } = await supabase.auth.signUp({
-        email,
-        password,
-      });
-      if (error) throw error;
+      // Sign up the user
+      const { data: signUpData, error: signUpError } =
+        await supabase.auth.signUp({
+          email,
+          password,
+        });
+
+      if (signUpError) throw signUpError;
+
+      // Insert into the users table
+      const userId = signUpData.user?.id; // Get the user ID from the signed-up user
+      if (userId) {
+        const { error: insertError } = await supabase.from("users").insert([
+          {
+            userid: userId, // Insert the user ID
+            name: name, // Replace this with actual full name input
+            email: email, // Use the email entered during signup
+          },
+        ]);
+
+        if (insertError) throw insertError;
+      }
+
       setMessage("Check your email for the confirmation link!");
     } catch (error) {
+      console.error("Sign-up error:", error);
       setMessage(error.message);
     } finally {
       setLoading(false);
     }
   };
-
   return (
     <Box
       sx={{
@@ -34,7 +70,7 @@ const Signup = () => {
         display: "flex",
         alignItems: "center",
         justifyContent: "center",
-        background:"linear-gradient(180deg, #FFFFFF 0%, #F1F8E9 100%)",
+        background: "linear-gradient(180deg, #FFFFFF 0%, #F1F8E9 100%)",
       }}
     >
       <Card
@@ -68,6 +104,7 @@ const Signup = () => {
           <TextField
             label="Full Name"
             variant="outlined"
+            onChange={(e) => setname(e.target.value)}
             fullWidth
             sx={{
               "& .MuiOutlinedInput-root": {
