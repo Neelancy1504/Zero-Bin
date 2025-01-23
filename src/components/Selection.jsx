@@ -147,7 +147,7 @@ const Selection = () => {
           WebkitTextFillColor: "transparent",
         }}
       >
-        Select a Service
+        What are we Recycling Today?
       </Typography>
 
       <Box sx={{ maxWidth: 600, mx: "auto", mb: 6 }}>

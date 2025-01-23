@@ -82,12 +82,14 @@ const Header = () => {
         sx={{
           display: "flex",
           justifyContent: "space-between",
-          px: { xs: 2, md: 4 },
+          // px: { xs: 2, md: 4 },
           py: 1,
         }}
       >
         {/* Logo and Brand */}
-        <Box sx={{ display: "flex", alignItems: "center", gap: 1 }}>
+        <Box
+          sx={{ display: "flex", alignItems: "center", gap: 0, width: "1%" }}
+        >
           <RecyclingIcon sx={{ color: "#32a137", fontSize: 40, mr: 0 }} />
           <Typography
             variant="h4"
@@ -104,11 +106,15 @@ const Header = () => {
 
         {/* Navigation Links */}
         <Box
-          sx={{ display: { xs: "none", md: "flex" }, gap: 3, fontSize: "10px" }}
+          sx={{
+            display: { xs: "none", md: "flex" },
+            gap: 10,
+            fontSize: "15px",
+          }}
         >
           <Button
             color="inherit"
-            sx={{ color: "#333" }}
+            sx={{ color: "#333", fontSize: "15px" }}
             onClick={() => navigate("/")}
           >
             Home
@@ -178,14 +184,14 @@ const Header = () => {
               transformOrigin={{ horizontal: "right", vertical: "top" }}
               anchorOrigin={{ horizontal: "right", vertical: "bottom" }}
             >
-              <MenuItem onClick={() => handleMenuItemClick("/track")}>
+              <MenuItem onClick={() => handleMenuItemClick("/pickuplist")}>
                 <ListItemIcon>
                   <LocalShippingIcon
                     fontSize="small"
                     sx={{ color: "#2E7D32" }}
                   />
                 </ListItemIcon>
-                Track My Product
+                Track My Pickup
               </MenuItem>
               <MenuItem onClick={() => handleMenuItemClick("/profile")}>
                 <ListItemIcon>

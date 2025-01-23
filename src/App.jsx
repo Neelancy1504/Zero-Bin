@@ -15,6 +15,9 @@ import AboutUs from "./components/AboutUs";
 import FAQ from "./components/FAQ";
 import Insights from "./components/Insights";
 import "./App.css";
+import PickupBooking from "./components/Pickup";
+import PickupList from "./components/PickupList";
+import AIChatbot from "./components/AIChatBot";
 
 // Create a Material Design 3 dark theme with neon accents
 const theme = createTheme({
@@ -117,6 +120,8 @@ function App() {
   return (
     <Router>
       <ThemeProvider theme={theme}>
+        {/* //
+        <AIChatbot /> */}
         <div
           style={{
             width: "100%",
@@ -138,6 +143,8 @@ function App() {
             background: "linear-gradient(to bottom, #FFFFFF, #A8E6A2)", // White to light green gradient
           }}
         > */}
+
+          <AIChatbot />
           <Header />
           <Routes>
             <Route
@@ -166,6 +173,8 @@ function App() {
             <Route path="/about" element={<AboutUs />} />
             <Route path="/faqs" element={<FAQ />} />
             <Route path="/insights" element={<Insights />} />
+            <Route path="/pickupbooking" element={<PickupBooking />} />
+            <Route path="/pickuplist" element={<PickupList />} />
           </Routes>
         </div>
       </ThemeProvider>
