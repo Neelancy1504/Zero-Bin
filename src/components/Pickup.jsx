@@ -11,8 +11,6 @@ import {
   FormControl,
   InputLabel,
 } from "@mui/material";
-//import createpickup from "../../services/PickupService";
-//import { createPickup } from "../../services/PickupService";
 import supabase from "../../helpers/supabase";
 const PickupBooking = () => {
   const [address, setAddress] = useState("");
@@ -20,49 +18,6 @@ const PickupBooking = () => {
   const [timeSlot, setTimeSlot] = useState("");
   const [vehicleType, setVehicleType] = useState("");
   const [loading, setloading] = useState("");
-
-  // const onSubmit = async () => {
-  //   // Validate all fields
-  //   if (!address || !date || !timeSlot || !vehicleType) {
-  //     alert("Please fill in all fields");
-  //     return;
-  //   }
-
-  //   try {
-  //     setloading(true);
-
-  //     // Get the current user's ID (assuming you have user authentication)
-  //     const { data: userData } = await supabase.auth.getUser();
-  //     const userId = userData.user.id;
-
-  //     // Insert pickup data into the pickup table
-  //     const { data, error } = await supabase
-  //       .from("pickup")
-  //       .insert({
-  //         timeslot: timeSlot,
-  //         date: date,
-  //         vehicle: vehicleType,
-  //         userid: userId,
-  //         address: address,
-  //       })
-  //       .select();
-
-  //     if (error) throw error;
-
-  //     // Success handling
-  //     alert(
-  //       `Pickup Confirmed!\nAddress: ${address}\nDate: ${date}\nTime: ${timeSlot}\nVehicle: ${vehicleType}\nTotal Cost: $${calculateTotalCost()}`
-  //     );
-
-  //     // Optional: Navigate back or reset form
-  //     //router.back();
-  //   } catch (error) {
-  //     console.error("Error creating pickup:", error);
-  //     alert("Failed to create pickup: " + error.message);
-  //   } finally {
-  //     setloading(false);
-  //   }
-  // };
 
   const onSubmit = async () => {
     // Validate all fields
