@@ -44,7 +44,7 @@ const Hero = () => {
           justifyContent: "center",
           gap: 3,
           borderRight: "1px solid #eee",
-          //width: "50%",
+          // width: "50%",
         }}
       >
         <Typography
@@ -123,7 +123,7 @@ const Hero = () => {
           ...fadeInScaleStyles,
           flex: 1,
           position: "relative",
-          width: "50%",
+          width: "80%",
           overflow: "hidden",
           maxHeight: "50%",
         }}
@@ -139,65 +139,6 @@ const Hero = () => {
           }}
         />
       </Box>
-
-      {/* Third Section - Vision */}
-      {/* <Box
-        sx={{
-          ...fadeInScaleStyles,
-          flex: 1,
-          p: 4,
-          display: "flex",
-          flexDirection: "column",
-          justifyContent: "center",
-          alignItems: "flex-start",
-        }}
-      >
-        <Box sx={{ maxWidth: "400px" }}>
-          <Box
-            sx={{
-              mb: 1,
-              display: "flex",
-              flexDirection: "column",
-              alignItems: "center",
-            }}
-          >
-            <Box
-              sx={{
-                width: 70,
-                height: 70,
-                borderRadius: "50%",
-                bgcolor: "#E8F5E9",
-                display: "flex",
-                alignItems: "center",
-                justifyContent: "center",
-              }}
-            >
-              <RecyclingIcon sx={{ color: "#2E7D32", fontSize: 45 }} />
-            </Box>
-            <Typography
-              variant="h5"
-              sx={{ fontWeight: 700, color: "#333", marginTop: "20px" }}
-            >
-              ZeroBin Vision
-            </Typography>
-          </Box>
-
-          <Typography
-            variant="body1"
-            sx={{
-              color: "#666",
-              lineHeight: 1.8,
-              textAlign: "justify",
-            }}
-          >
-            ZeroBin fosters a perpetual sense of green responsibility in
-            individuals, communities, and business houses alike for them to
-            critically think, perceive possibilities, resolve conflicts and
-            generate hypotheses to become self-aware and mindful of the impact
-            of their acts on the earth and its inevitable consequences.
-          </Typography>
-        </Box>
-      </Box> */}
     </Box>
   );
 };

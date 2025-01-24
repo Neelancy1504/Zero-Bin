@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import React, { useState, useEffect } from "react";
 import {
   Box,
   Typography,
@@ -15,39 +15,7 @@ import {
 } from "@mui/material";
 import supabase from "../../helpers/supabase";
 import EmojiEventsIcon from "@mui/icons-material/EmojiEvents";
-import LocalOfferIcon from "@mui/icons-material/LocalOffer";
-import CardGiftcardIcon from "@mui/icons-material/CardGiftcard";
 
-const rewardOptions = [
-  {
-    id: 1,
-    title: "₹100 Off on Bamboo Products",
-    points: 500,
-    description: "Get ₹100 off on any bamboo product purchase above ₹500",
-    image: "/images/rewards/bamboo.jpg",
-  },
-  {
-    id: 2,
-    title: "20% Off on Eco-Friendly Bags",
-    points: 800,
-    description: "Get 20% discount on our collection of recycled material bags",
-    image: "/images/rewards/bags.jpg",
-  },
-  {
-    id: 3,
-    title: "Free Metal Straw Set",
-    points: 1000,
-    description: "Redeem a set of 4 metal straws with cleaning brush",
-    image: "/images/rewards/straws.jpg",
-  },
-  {
-    id: 4,
-    title: "₹500 Off on Solar Products",
-    points: 2000,
-    description: "Get ₹500 off on any solar-powered product",
-    image: "/images/rewards/solar.jpg",
-  },
-];
 const RewardCard = ({ reward, userPoints, onRedeem }) => {
   const canRedeem = userPoints >= reward.points;
 
@@ -68,7 +36,7 @@ const RewardCard = ({ reward, userPoints, onRedeem }) => {
     >
       <Box
         component="img"
-        src={reward.image}
+        src={reward.image_url}
         alt={reward.title}
         sx={{
           width: "100%",
@@ -113,8 +81,9 @@ const RewardCard = ({ reward, userPoints, onRedeem }) => {
   );
 };
 
-const EcoPoints = () => {
+const RewardsPage = () => {
   const [userPoints, setUserPoints] = useState(0);
+  const [rewards, setRewards] = useState([]);
   const [loading, setLoading] = useState(true);
   const [selectedReward, setSelectedReward] = useState(null);
   const [openDialog, setOpenDialog] = useState(false);
@@ -123,34 +92,8 @@ const EcoPoints = () => {
 
   useEffect(() => {
     fetchUserPoints();
+    fetchRewards();
   }, []);
-
-  // const fetchUserPoints = async () => {
-  //   try {
-  //     setLoading(true);
-  //     const {
-  //       data: { user },
-  //     } = await supabase.auth.getUser();
-
-  //     if (!user) throw new Error("User not authenticated");
-
-  //     // Replace with your actual database query
-  //     const { data, error } = await supabase
-  //       .from("user_points")
-  //       .select("points")
-  //       .eq("user_id", user.id)
-  //       .single();
-
-  //     if (error) throw error;
-
-  //     setUserPoints(data?.points || 0);
-  //   } catch (error) {
-  //     console.error("Error fetching points:", error);
-  //     setError("Failed to load your points. Please try again later.");
-  //   } finally {
-  //     setLoading(false);
-  //   }
-  // };
 
   const fetchUserPoints = async () => {
     try {
@@ -161,22 +104,32 @@ const EcoPoints = () => {
 
       if (!user) throw new Error("User not authenticated");
 
-      // Fetch user points safely
       const { data, error } = await supabase
         .from("user_points")
         .select("points")
         .eq("user_id", user.id)
-        .maybeSingle(); // Use maybeSingle to avoid crashing when no rows are returned
+        .single();
 
       if (error) throw error;
 
-      // Set points to 0 if no rows are found
       setUserPoints(data?.points || 0);
     } catch (error) {
       console.error("Error fetching points:", error);
       setError("Failed to load your points. Please try again later.");
     } finally {
       setLoading(false);
+    }
+  };
+
+  const fetchRewards = async () => {
+    try {
+      const { data, error } = await supabase.from("rewards").select("*");
+      if (error) throw error;
+
+      setRewards(data || []);
+    } catch (error) {
+      console.error("Error fetching rewards:", error);
+      setError("Failed to load rewards. Please try again later.");
     }
   };
 
@@ -193,7 +146,6 @@ const EcoPoints = () => {
 
       if (!user) throw new Error("User not authenticated");
 
-      // Replace with your actual redemption logic
       const { error } = await supabase.rpc("redeem_points", {
         points_to_redeem: selectedReward.points,
         user_id: user.id,
@@ -228,7 +180,6 @@ const EcoPoints = () => {
 
   return (
     <Box sx={{ py: 8, px: 4 }}>
-      {/* Points Display */}
       <Box
         sx={{
           textAlign: "center",
@@ -248,12 +199,11 @@ const EcoPoints = () => {
         </Typography>
       </Box>
 
-      {/* Rewards Grid */}
       <Typography variant="h4" sx={{ mb: 4 }}>
         Available Rewards
       </Typography>
       <Grid container spacing={4}>
-        {rewardOptions.map((reward) => (
+        {rewards.map((reward) => (
           <Grid item xs={12} sm={6} md={4} key={reward.id}>
             <RewardCard
               reward={reward}
@@ -264,7 +214,6 @@ const EcoPoints = () => {
         ))}
       </Grid>
 
-      {/* Confirmation Dialog */}
       <Dialog open={openDialog} onClose={() => setOpenDialog(false)}>
         <DialogTitle>Confirm Redemption</DialogTitle>
         <DialogContent>
@@ -281,7 +230,6 @@ const EcoPoints = () => {
         </DialogActions>
       </Dialog>
 
-      {/* Success Snackbar */}
       <Snackbar
         open={openSnackbar}
         autoHideDuration={6000}
@@ -295,4 +243,4 @@ const EcoPoints = () => {
   );
 };
 
-export default EcoPoints;
+export default RewardsPage;
