@@ -108,6 +108,7 @@ const Header = () => {
         <Box
           sx={{
             display: { xs: "none", md: "flex" },
+            marginLeft: "7%",
             gap: 10,
             fontSize: "15px",
           }}

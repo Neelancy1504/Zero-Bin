@@ -23,45 +23,61 @@
 //     icon: <BatteryChargingFullIcon sx={{ fontSize: 40 }} />,
 //     title: "Batteries",
 //     description: "Recycle all types of batteries",
+//     image:
+//       "https://i.pinimg.com/736x/e5/96/e5/e596e55f36ec0266d166bf41d5549a11.jpg",
 //   },
 //   {
 //     icon: <DescriptionIcon sx={{ fontSize: 40 }} />,
 //     title: "Paper",
 //     description: "Paper, cardboard, and documents",
+//     image:
+//       "https://i.pinimg.com/736x/e3/d5/34/e3d534d198a6a27195efe718bcd48712.jpg",
 //   },
 //   {
 //     icon: <DevicesIcon sx={{ fontSize: 40 }} />,
 //     title: "Electronics",
 //     description: "E-waste and electronic devices",
+//     image:
+//       "https://clipart-library.com/8300/1931/electronic-device-cartoon-illustration-set_103027-447.jpg",
 //   },
 //   {
 //     icon: <RestaurantIcon sx={{ fontSize: 40 }} />,
-//     title: "Food Waste",
-//     description: "Organic and food waste",
+//     title: "Food ",
+//     description: "Organic",
+//     image:
+//       "https://i.pinimg.com/736x/69/75/63/6975634aa0fb5c4a381d989083db4b06.jpg",
 //   },
 //   {
 //     icon: <CheckroomIcon sx={{ fontSize: 40 }} />,
 //     title: "Clothing",
 //     description: "Textiles and clothing items",
+//     image:
+//       "https://i.pinimg.com/736x/0f/f3/89/0ff389295051ab7f88c03084275c6f13.jpg",
 //   },
 //   {
 //     icon: <AutorenewIcon sx={{ fontSize: 40 }} />,
 //     title: "Plastics",
 //     description: "All types of plastic materials",
+//     image:
+//       "https://img.freepik.com/premium-vector/waste-that-takes-long-decompose-plastic-bag-disposable-cup-plastic-bottle_799239-30.jpg?w=740",
 //   },
 //   {
 //     icon: <ChairIcon sx={{ fontSize: 40 }} />,
 //     title: "Furniture",
 //     description: "Used and old furniture",
+//     image:
+//       "https://as2.ftcdn.net/jpg/02/20/23/85/1000_F_220238561_xt6t6gv6wHV5Nl435yUVTYr6rM0knTWa.jpg",
 //   },
 //   {
 //     icon: <BuildIcon sx={{ fontSize: 40 }} />,
 //     title: "Metal",
 //     description: "Scrap metal and metallic items",
+//     image:
+//       "https://i.pinimg.com/736x/5d/ad/0d/5dad0dfa9dee0604a2c8fa00df58631f.jpg",
 //   },
 // ];
 
-// const ServiceCard = ({ icon, title, description }) => {
+// const ServiceCard = ({ icon, title, description, image }) => {
 //   const navigate = useNavigate();
 
 //   return (
@@ -88,6 +104,18 @@
 //         },
 //       }}
 //     >
+//       <Box
+//         component="img"
+//         src={image}
+//         alt={title}
+//         sx={{
+//           width: "100%",
+//           height: 140,
+//           objectFit: "cover",
+//           borderRadius: 2,
+//           mb: 2,
+//         }}
+//       />
 //       <Box
 //         className="icon"
 //         sx={{
@@ -142,7 +170,7 @@
 //           textAlign: "center",
 //           mb: 6,
 //           fontWeight: "bold",
-//           background: "linear-gradient(45deg, #2E7D32 30%, #4CAF50 90%)",
+//           background: "#2E7D32",
 //           WebkitBackgroundClip: "text",
 //           WebkitTextFillColor: "transparent",
 //         }}
@@ -150,7 +178,7 @@
 //         What are we Recycling Today?
 //       </Typography>
 
-//       <Box sx={{ maxWidth: 600, mx: "auto", mb: 6 }}>
+//       <Box sx={{ maxWidth: 600, mx: "auto", mb: 6, backgroundColor: "white" }}>
 //         <TextField
 //           fullWidth
 //           variant="outlined"
@@ -160,20 +188,20 @@
 //           InputProps={{
 //             startAdornment: (
 //               <InputAdornment position="start">
-//                 <SearchIcon sx={{ color: "rgba(0, 255, 149, 0.5)" }} />
+//                 <SearchIcon sx={{ color: "black" }} />
 //               </InputAdornment>
 //             ),
 //           }}
 //           sx={{
 //             "& .MuiOutlinedInput-root": {
 //               "& fieldset": {
-//                 borderColor: "rgba(0, 255, 149, 0.2)",
+//                 borderColor: "black",
 //               },
 //               "&:hover fieldset": {
-//                 borderColor: "rgba(0, 255, 149, 0.4)",
+//                 borderColor: "black",
 //               },
 //               "&.Mui-focused fieldset": {
-//                 borderColor: "#00ff95",
+//                 borderColor: "black",
 //               },
 //             },
 //           }}
@@ -226,35 +254,35 @@ const recycleServices = [
     title: "Paper",
     description: "Paper, cardboard, and documents",
     image:
-      "https://i.pinimg.com/736x/e3/d5/34/e3d534d198a6a27195efe718bcd48712.jpg",
+      "https://img.freepik.com/premium-vector/isometric-paper-sheets_592324-1066.jpg?w=740",
   },
   {
     icon: <DevicesIcon sx={{ fontSize: 40 }} />,
     title: "Electronics",
     description: "E-waste and electronic devices",
     image:
-      "https://clipart-library.com/8300/1931/electronic-device-cartoon-illustration-set_103027-447.jpg",
+      "https://img.freepik.com/premium-vector/professional-bundle-computer-technological-devices-vector-illustration_1138841-23831.jpg?w=1060",
   },
   {
     icon: <RestaurantIcon sx={{ fontSize: 40 }} />,
     title: "Food ",
     description: "Organic",
     image:
-      "https://i.pinimg.com/736x/69/75/63/6975634aa0fb5c4a381d989083db4b06.jpg",
+      "https://img.freepik.com/free-vector/hand-drawn-delicious-locro-illustration_23-2149184157.jpg?t=st=1737718250~exp=1737721850~hmac=78f16d2be4dc2cfc9d0dbe4ce9716817798fb6d1c738c91acc6ae55bc50a27c0&w=740",
   },
   {
     icon: <CheckroomIcon sx={{ fontSize: 40 }} />,
     title: "Clothing",
     description: "Textiles and clothing items",
     image:
-      "https://i.pinimg.com/736x/0f/f3/89/0ff389295051ab7f88c03084275c6f13.jpg",
+      "https://img.freepik.com/free-vector/flat-clothes-store-illustration-with-colorful-coat-jacket-skirt-trousers-tshirt-women-hangers_1284-64144.jpg",
   },
   {
     icon: <AutorenewIcon sx={{ fontSize: 40 }} />,
     title: "Plastics",
     description: "All types of plastic materials",
     image:
-      "https://img.freepik.com/premium-vector/waste-that-takes-long-decompose-plastic-bag-disposable-cup-plastic-bottle_799239-30.jpg?w=740",
+      "https://img.freepik.com/premium-vector/big-roll-transparent-stretch-film-packaging-is-lying-white-background_98402-214949.jpg?w=740",
   },
   {
     icon: <ChairIcon sx={{ fontSize: 40 }} />,
@@ -268,7 +296,7 @@ const recycleServices = [
     title: "Metal",
     description: "Scrap metal and metallic items",
     image:
-      "https://i.pinimg.com/736x/5d/ad/0d/5dad0dfa9dee0604a2c8fa00df58631f.jpg",
+      "https://img.freepik.com/premium-vector/coffee-canisters_648765-6005.jpg?w=900",
   },
 ];
 
@@ -305,7 +333,7 @@ const ServiceCard = ({ icon, title, description, image }) => {
         alt={title}
         sx={{
           width: "100%",
-          height: 140,
+          height: 200,
           objectFit: "cover",
           borderRadius: 2,
           mb: 2,
@@ -398,6 +426,7 @@ const Selection = () => {
               "&.Mui-focused fieldset": {
                 borderColor: "black",
               },
+              borderRadius: "15px",
             },
           }}
         />

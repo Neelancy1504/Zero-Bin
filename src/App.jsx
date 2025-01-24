@@ -121,30 +121,18 @@ function App() {
   return (
     <Router>
       <ThemeProvider theme={theme}>
-        {/* //
-        <AIChatbot /> */}
         <div
           style={{
             width: "100%",
             minHeight: "100vh",
             margin: 0,
             padding: 0,
-            // background: "linear-gradient(to bottom, #FFFFFF, #A8E6A2)",
+
             background: "#FFFFFF", // White to light green gradient
-            backgroundAttachment: "fixed", // Fixes the gradient background
-            backgroundSize: "cover", // Ensures the gradient covers the entire viewport
+            //backgroundAttachment: "fixed", // Fixes the gradient background
+            //backgroundSize: "cover", // Ensures the gradient covers the entire viewport
           }}
         >
-          {/* <div
-          style={{
-            width: "100%",
-            minHeight: "100vh",
-            margin: 0,
-            padding: 0,
-            background: "linear-gradient(to bottom, #FFFFFF, #A8E6A2)", // White to light green gradient
-          }}
-        > */}
-
           <AIChatbot />
           <Header />
           <Routes>
@@ -152,11 +140,13 @@ function App() {
               path="/"
               element={
                 <main
-                  style={{
-                    maxWidth: "1280px",
-                    margin: "0 auto",
-                    padding: "0 2rem",
-                  }}
+                  style={
+                    {
+                      //maxWidth: "1280px",
+                      //margin: "0 auto",
+                      //padding: "0 2rem",
+                    }
+                  }
                 >
                   <Hero />
                   <Services />
@@ -184,107 +174,4 @@ function App() {
   );
 }
 
-// function App() {
-//   return (
-//     <Router>
-//       <ThemeProvider theme={theme}>
-//         <div
-//           style={{
-//             display: "flex",
-//             width: "100%",
-//             minHeight: "100vh",
-//             margin: 0,
-//             padding: 0,
-//             background: "#FFFFFF", // Background color
-//             overflow: "hidden",
-//           }}
-//         >
-//           {/* Left Decorative Element */}
-//           <div
-//             style={{
-//               flex: "0 0 10%",
-//               background: "linear-gradient(to bottom, #A8E6A2, #4CAF50)",
-//               boxShadow: "2px 0 5px rgba(0, 0, 0, 0.1)",
-//               display: "flex",
-//               alignItems: "center",
-//               justifyContent: "center",
-//             }}
-//           >
-//             <p
-//               style={{
-//                 writingMode: "vertical-lr",
-//                 transform: "rotate(180deg)",
-//                 fontFamily: "Outfit, sans-serif",
-//                 color: "#FFFFFF",
-//                 fontSize: "14px",
-//               }}
-//             >
-//               🌱 Eco-Friendly
-//             </p>
-//           </div>
-
-//           {/* Main Content */}
-//           <div
-//             style={{
-//               flex: "1",
-//               maxWidth: "1280px",
-//               margin: "0 auto",
-//               padding: "0 2rem",
-//             }}
-//           >
-//             <AIChatbot />
-//             <Header />
-//             <Routes>
-//               <Route
-//                 path="/"
-//                 element={
-//                   <main>
-//                     <Hero />
-//                     <Services />
-//                     <DirectHelp />
-//                     <Footer />
-//                   </main>
-//                 }
-//               />
-//               <Route path="/login" element={<Login />} />
-//               <Route path="/signup" element={<Signup />} />
-//               <Route path="/services" element={<Selection />} />
-//               <Route path="/service" element={<Service />} />
-//               <Route path="/profile" element={<Profile />} />
-//               <Route path="/ecopoints" element={<EcoPoints />} />
-//               <Route path="/about" element={<AboutUs />} />
-//               <Route path="/faqs" element={<FAQ />} />
-//               <Route path="/insights" element={<Insights />} />
-//               <Route path="/pickupbooking" element={<PickupBooking />} />
-//               <Route path="/pickuplist" element={<PickupList />} />
-//             </Routes>
-//           </div>
-
-//           {/* Right Decorative Element */}
-//           <div
-//             style={{
-//               flex: "0 0 10%",
-//               background: "linear-gradient(to bottom, #4CAF50, #A8E6A2)",
-//               boxShadow: "-2px 0 5px rgba(0, 0, 0, 0.1)",
-//               display: "flex",
-//               alignItems: "center",
-//               justifyContent: "center",
-//             }}
-//           >
-//             <p
-//               style={{
-//                 writingMode: "vertical-lr",
-//                 fontFamily: "Outfit, sans-serif",
-//                 color: "#FFFFFF",
-//                 fontSize: "14px",
-//               }}
-//             >
-//               ♻️ Recycle More
-//             </p>
-//           </div>
-//         </div>
-//       </ThemeProvider>
-//     </Router>
-//   );
-// }
 export default App;
