@@ -1,40 +1,52 @@
-import React from 'react';
-import { PieChart, Pie, Cell, BarChart, Bar, XAxis, YAxis, Tooltip, Legend, LineChart, Line } from 'recharts';
+import React from "react";
+import {
+  PieChart,
+  Pie,
+  Cell,
+  BarChart,
+  Bar,
+  XAxis,
+  YAxis,
+  Tooltip,
+  Legend,
+  LineChart,
+  Line,
+} from "recharts";
 
 const InsightsDashboard = () => {
   const salesData = [
-    { month: 'Jan', sales: 4000, target: 3000 },
-    { month: 'Feb', sales: 3500, target: 3000 },
-    { month: 'Mar', sales: 5000, target: 3000 },
-    { month: 'Apr', sales: 4500, target: 3000 },
-    { month: 'May', sales: 6000, target: 3000 }
+    { month: "Jan", sales: 4000, target: 3000 },
+    { month: "Feb", sales: 3500, target: 3000 },
+    { month: "Mar", sales: 5000, target: 3000 },
+    { month: "Apr", sales: 4500, target: 3000 },
+    { month: "May", sales: 6000, target: 3000 },
   ];
 
   const marketShare = [
-    { name: 'Product A', value: 400 },
-    { name: 'Product B', value: 300 },
-    { name: 'Product C', value: 300 },
-    { name: 'Product D', value: 200 }
+    { name: "Product A", value: 400 },
+    { name: "Product B", value: 300 },
+    { name: "Product C", value: 300 },
+    { name: "Product D", value: 200 },
   ];
 
   const regionData = [
-    { name: 'North', value: 30 },
-    { name: 'South', value: 25 },
-    { name: 'East', value: 25 },
-    { name: 'West', value: 20 }
+    { name: "North", value: 30 },
+    { name: "South", value: 25 },
+    { name: "East", value: 25 },
+    { name: "West", value: 20 },
   ];
 
-  const COLORS = ['#0088FE', '#00C49F', '#FFBB28', '#FF8042'];
+  const COLORS = ["#0088FE", "#00C49F", "#FFBB28", "#FF8042"];
 
   return (
     <div className="p-4">
       <div className="mb-6 bg-white rounded-lg shadow">
-        <h1 className="p-4 text-2xl font-bold">Business Insights Dashboard</h1>
+        <h1 className="p-4 text-2xl font-bold">ZeroBin Insights</h1>
         <div className="p-4 border-t">
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
             <div className="bg-blue-50 p-4 rounded-lg">
-              <h3 className="font-semibold mb-2">Total Revenue</h3>
-              <p className="text-3xl font-bold">$243,432</p>
+              <h3 className="font-semibold mb-2">Total Orders Completed</h3>
+              <p className="text-3xl font-bold">2034</p>
               <span className="text-green-500">↑ 12% vs last month</span>
             </div>
             <div className="bg-green-50 p-4 rounded-lg">
@@ -43,9 +55,9 @@ const InsightsDashboard = () => {
               <span className="text-green-500">↑ 8% vs last month</span>
             </div>
             <div className="bg-yellow-50 p-4 rounded-lg">
-              <h3 className="font-semibold mb-2">Conversion Rate</h3>
+              <h3 className="font-semibold mb-2">Carbon Footprint Reduced</h3>
               <p className="text-3xl font-bold">2.4%</p>
-              <span className="text-red-500">↓ 1% vs last month</span>
+              <span className="text-green-500">↑ 1% vs last month</span>
             </div>
           </div>
         </div>
@@ -53,7 +65,7 @@ const InsightsDashboard = () => {
 
       <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
         <div className="bg-white p-4 rounded-lg shadow">
-          <h2 className="text-xl font-semibold mb-4">Sales Performance</h2>
+          <h2 className="text-xl font-semibold mb-4">Order Stats</h2>
           <LineChart width={500} height={300} data={salesData}>
             <XAxis dataKey="month" />
             <YAxis />
@@ -78,7 +90,10 @@ const InsightsDashboard = () => {
               dataKey="value"
             >
               {marketShare.map((entry, index) => (
-                <Cell key={`cell-${index}`} fill={COLORS[index % COLORS.length]} />
+                <Cell
+                  key={`cell-${index}`}
+                  fill={COLORS[index % COLORS.length]}
+                />
               ))}
             </Pie>
             <Tooltip />
@@ -98,7 +113,10 @@ const InsightsDashboard = () => {
               dataKey="value"
             >
               {regionData.map((entry, index) => (
-                <Cell key={`cell-${index}`} fill={COLORS[index % COLORS.length]} />
+                <Cell
+                  key={`cell-${index}`}
+                  fill={COLORS[index % COLORS.length]}
+                />
               ))}
             </Pie>
             <Tooltip />

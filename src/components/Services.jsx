@@ -17,40 +17,48 @@ import PriceCheckIcon from "@mui/icons-material/PriceCheck";
 import { useNavigate, useLocation } from "react-router-dom";
 import ArrowDownwardIcon from "@mui/icons-material/ArrowDownward";
 
+const COLORS = ["#0088FE", "#00C49F", "#FFBB28", "#FF8042"];
+
 const services = [
   {
     icon: <RecyclingIcon sx={{ fontSize: 40 }} />,
     title: "Waste Management",
     description: "Smart recycling solutions for businesses and individuals",
+    bgcolor: "#FFFFFF",
   },
   {
     icon: <LocalShippingIcon sx={{ fontSize: 40 }} />,
     title: "Pickup Service",
     description: "Scheduled pickups at your convenience",
+    bgcolor: "#FFFFFF",
   },
   {
     icon: <InventoryIcon sx={{ fontSize: 40 }} />,
     title: "Inventory Tracking",
     description: "Real-time tracking of your recyclable inventory",
+    bgcolor: "#FFFFFF",
   },
   {
     icon: <HandshakeIcon sx={{ fontSize: 40 }} />,
     title: "Business Connect",
     description: "Connect with recycling businesses directly",
+    bgcolor: "#FFFFFF",
   },
   {
     icon: <VolunteerActivismIcon sx={{ fontSize: 40 }} />,
     title: "Community Impact",
     description: "Make a positive impact on your local community",
+    bgcolor: "#FFFFFF",
   },
   {
     icon: <PriceCheckIcon sx={{ fontSize: 40 }} />,
     title: "Best Value",
     description: "Get the best value for your recyclable materials",
+    bgcolor: "#FFFFFF",
   },
 ];
 
-const ServiceCard = ({ icon, title, description }) => {
+const ServiceCard = ({ icon, title, description, bgcolor }) => {
   return (
     <Card
       sx={{
@@ -60,7 +68,7 @@ const ServiceCard = ({ icon, title, description }) => {
         alignItems: "center",
         padding: 4,
         textAlign: "center",
-        background: "#FFFFFF",
+        background: bgcolor,
         border: "1px solid rgba(46, 125, 50, 0.12)",
         borderRadius: 4,
         transition: "all 0.3s ease-in-out",
@@ -76,6 +84,7 @@ const ServiceCard = ({ icon, title, description }) => {
       <Box
         className="icon"
         sx={{
+          //color: "black",
           color: "#4CAF50",
           mb: 2,
           transition: "all 0.3s ease-in-out",
@@ -88,6 +97,7 @@ const ServiceCard = ({ icon, title, description }) => {
         sx={{
           mb: 2,
           fontWeight: "bold",
+          //background: "black",
           background: "linear-gradient(45deg, #2E7D32 30%, #4CAF50 90%)",
           WebkitBackgroundClip: "text",
           WebkitTextFillColor: "transparent",
