@@ -489,7 +489,7 @@ const Service = () => {
   const [showLocationDialog, setShowLocationDialog] = useState(true);
   const mapRef = useRef(null);
   const autocompleteRef = useRef(null);
-  const isCommunityImpact = title === "Community Impact";
+  const isCommunityImpact = title === "Give. Share. Care.";
   const navigate = useNavigate();
   const handleLocationSelect = async (place) => {
     try {

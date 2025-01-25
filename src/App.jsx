@@ -19,6 +19,7 @@ import PickupBooking from "./components/Pickup";
 import PickupList from "./components/PickupList";
 import AIChatbot from "./components/AIChatBot";
 import RewardsPage from "./components/Rewards";
+import OurTeam from "./components/OurTeam";
 
 // Create a Material Design 3 dark theme with neon accents
 const theme = createTheme({
@@ -151,6 +152,7 @@ function App() {
                   <Hero />
                   <Services />
                   <DirectHelp />
+                  <OurTeam />
                   <Footer />
                 </main>
               }
@@ -167,6 +169,7 @@ function App() {
             <Route path="/pickupbooking" element={<PickupBooking />} />
             <Route path="/pickuplist" element={<PickupList />} />
             <Route path="/rewards" element={<RewardsPage />} />
+            <Route path="/ourteam" element={<OurTeam />} />
           </Routes>
         </div>
       </ThemeProvider>
