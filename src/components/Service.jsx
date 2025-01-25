@@ -105,7 +105,8 @@ const realNGOs = [
   {
     id: 4,
     name: "Waste Warriors",
-    image: "https://wastewarriors.org/wp-content/themes/waste/images/logo.png",
+    image:
+      "https://www.wastewarriors.org/wp-content/uploads/2022/11/WW-Uttarkashi-waste-transportation-truck-team-IMG_7986.jpg",
     cause: "Solid Waste Management",
     impact:
       "Managing waste in Dehradun, Dharamshala, and around Jim Corbett National Park",
@@ -117,7 +118,7 @@ const realNGOs = [
     id: 5,
     name: "Daily Dump",
     image:
-      "https://dailydump.org/wp-content/uploads/2019/03/daily-dump-logo.png",
+      "https://www.dailydump.org/cdn/shop/files/DDheaderfinal1_200x.png?v=1630048155",
     cause: "Home Composting Solutions",
     impact:
       "Helped over 60,000 households manage organic waste through composting",
@@ -129,7 +130,7 @@ const realNGOs = [
     id: 6,
     name: "Saahas Zero Waste",
     image:
-      "https://saahaszerowaste.com/wp-content/uploads/2019/03/szw-logo.png",
+      "https://i0.wp.com/saahaszerowaste.com/wp-content/uploads/2022/02/Brand-logo.jpg?fit=1920%2C1920&ssl=1",
     cause: "Zero Waste Management Solutions",
     impact: "Managing 80+ tons of waste daily across multiple Indian cities",
     donationNeeded: "Support Needed",

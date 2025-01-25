@@ -30,12 +30,13 @@ const ServiceCard = ({ icon, title, description }) => {
 
   return (
     <Card
-      onClick={() => navigate('/service', { state: { title } })}
+      onClick={() => navigate("/service", { state: { title } })}
       sx={{
         height: "100%",
         display: "flex",
         flexDirection: "column",
         alignItems: "center",
+        marginX: 4,
         padding: 4,
         textAlign: "center",
         background: "#FFFFFF",
@@ -91,7 +92,7 @@ const DirectHelp = () => {
     <Box
       id="direct-help"
       sx={{
-        paddingBottom: 0
+        paddingBottom: 0,
       }}
     >
       <Typography
@@ -103,7 +104,6 @@ const DirectHelp = () => {
           background: "linear-gradient(45deg, #2E7D32 30%, #4CAF50 90%)",
           WebkitBackgroundClip: "text",
           WebkitTextFillColor: "transparent",
-          
         }}
       >
         Direct Help

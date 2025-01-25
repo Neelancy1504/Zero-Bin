@@ -24,28 +24,30 @@ const rewardOptions = [
     title: "₹100 Off on Bamboo Products",
     points: 500,
     description: "Get ₹100 off on any bamboo product purchase above ₹500",
-    image: "/images/rewards/bamboo.jpg",
+    image: "https://meticulousbplans.com/wp-content/uploads/2020/02/bamboo.jpg",
   },
   {
     id: 2,
     title: "20% Off on Eco-Friendly Bags",
     points: 800,
     description: "Get 20% discount on our collection of recycled material bags",
-    image: "/images/rewards/bags.jpg",
+    image: "https://www.deyute.com/neofiles/image/eco-jute-bags.jpg",
   },
   {
     id: 3,
     title: "Free Metal Straw Set",
     points: 1000,
     description: "Redeem a set of 4 metal straws with cleaning brush",
-    image: "/images/rewards/straws.jpg",
+    image:
+      "https://i.etsystatic.com/34837732/r/il/62d9fd/3941508621/il_570xN.3941508621_3htk.jpg",
   },
   {
     id: 4,
     title: "₹500 Off on Solar Products",
     points: 2000,
     description: "Get ₹500 off on any solar-powered product",
-    image: "/images/rewards/solar.jpg",
+    image:
+      "https://cdn.shopify.com/s/files/1/0405/5747/8041/files/Gemini_Generated_Image_o8pjr8o8pjr8o8pj_480x480.jpg?v=1724908609",
   },
 ];
 const RewardCard = ({ reward, userPoints, onRedeem }) => {
