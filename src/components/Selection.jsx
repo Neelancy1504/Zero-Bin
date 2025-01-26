@@ -31,35 +31,35 @@
 //     title: "Paper",
 //     description: "Paper, cardboard, and documents",
 //     image:
-//       "https://i.pinimg.com/736x/e3/d5/34/e3d534d198a6a27195efe718bcd48712.jpg",
+//       "https://img.freepik.com/premium-vector/isometric-paper-sheets_592324-1066.jpg?w=740",
 //   },
 //   {
 //     icon: <DevicesIcon sx={{ fontSize: 40 }} />,
 //     title: "Electronics",
 //     description: "E-waste and electronic devices",
 //     image:
-//       "https://clipart-library.com/8300/1931/electronic-device-cartoon-illustration-set_103027-447.jpg",
+//       "https://img.freepik.com/premium-vector/professional-bundle-computer-technological-devices-vector-illustration_1138841-23831.jpg?w=1060",
 //   },
 //   {
 //     icon: <RestaurantIcon sx={{ fontSize: 40 }} />,
 //     title: "Food ",
 //     description: "Organic",
 //     image:
-//       "https://i.pinimg.com/736x/69/75/63/6975634aa0fb5c4a381d989083db4b06.jpg",
+//       "https://img.freepik.com/free-vector/hand-drawn-delicious-locro-illustration_23-2149184157.jpg?t=st=1737718250~exp=1737721850~hmac=78f16d2be4dc2cfc9d0dbe4ce9716817798fb6d1c738c91acc6ae55bc50a27c0&w=740",
 //   },
 //   {
 //     icon: <CheckroomIcon sx={{ fontSize: 40 }} />,
 //     title: "Clothing",
 //     description: "Textiles and clothing items",
 //     image:
-//       "https://i.pinimg.com/736x/0f/f3/89/0ff389295051ab7f88c03084275c6f13.jpg",
+//       "https://img.freepik.com/free-vector/flat-clothes-store-illustration-with-colorful-coat-jacket-skirt-trousers-tshirt-women-hangers_1284-64144.jpg",
 //   },
 //   {
 //     icon: <AutorenewIcon sx={{ fontSize: 40 }} />,
 //     title: "Plastics",
 //     description: "All types of plastic materials",
 //     image:
-//       "https://img.freepik.com/premium-vector/waste-that-takes-long-decompose-plastic-bag-disposable-cup-plastic-bottle_799239-30.jpg?w=740",
+//       "https://img.freepik.com/premium-vector/big-roll-transparent-stretch-film-packaging-is-lying-white-background_98402-214949.jpg?w=740",
 //   },
 //   {
 //     icon: <ChairIcon sx={{ fontSize: 40 }} />,
@@ -73,7 +73,7 @@
 //     title: "Metal",
 //     description: "Scrap metal and metallic items",
 //     image:
-//       "https://i.pinimg.com/736x/5d/ad/0d/5dad0dfa9dee0604a2c8fa00df58631f.jpg",
+//       "https://img.freepik.com/premium-vector/coffee-canisters_648765-6005.jpg?w=900",
 //   },
 // ];
 
@@ -110,7 +110,7 @@
 //         alt={title}
 //         sx={{
 //           width: "100%",
-//           height: 140,
+//           height: 200,
 //           objectFit: "cover",
 //           borderRadius: 2,
 //           mb: 2,
@@ -203,6 +203,7 @@
 //               "&.Mui-focused fieldset": {
 //                 borderColor: "black",
 //               },
+//               borderRadius: "15px",
 //             },
 //           }}
 //         />
@@ -229,6 +230,8 @@ import {
   Card,
   Typography,
   InputAdornment,
+  useMediaQuery,
+  useTheme,
 } from "@mui/material";
 import SearchIcon from "@mui/icons-material/Search";
 import BatteryChargingFullIcon from "@mui/icons-material/BatteryChargingFull";
@@ -302,6 +305,8 @@ const recycleServices = [
 
 const ServiceCard = ({ icon, title, description, image }) => {
   const navigate = useNavigate();
+  const theme = useTheme();
+  const isMobile = useMediaQuery(theme.breakpoints.down("sm"));
 
   return (
     <Card
@@ -311,7 +316,7 @@ const ServiceCard = ({ icon, title, description, image }) => {
         display: "flex",
         flexDirection: "column",
         alignItems: "center",
-        padding: 3,
+        padding: isMobile ? 2 : 3,
         textAlign: "center",
         background: "#FFFFFF",
         border: "1px solid rgba(46, 125, 50, 0.12)",
@@ -333,7 +338,7 @@ const ServiceCard = ({ icon, title, description, image }) => {
         alt={title}
         sx={{
           width: "100%",
-          height: 200,
+          height: isMobile ? 150 : 200,
           objectFit: "cover",
           borderRadius: 2,
           mb: 2,
@@ -350,7 +355,7 @@ const ServiceCard = ({ icon, title, description, image }) => {
         {icon}
       </Box>
       <Typography
-        variant="h6"
+        variant={isMobile ? "subtitle1" : "h6"}
         sx={{
           mb: 1,
           fontWeight: "bold",
@@ -360,7 +365,7 @@ const ServiceCard = ({ icon, title, description, image }) => {
         {title}
       </Typography>
       <Typography
-        variant="body2"
+        variant={isMobile ? "body2" : "body1"}
         sx={{
           color: "#566573",
         }}
@@ -373,6 +378,8 @@ const ServiceCard = ({ icon, title, description, image }) => {
 
 const Selection = () => {
   const [searchTerm, setSearchTerm] = useState("");
+  const theme = useTheme();
+  const isMobile = useMediaQuery(theme.breakpoints.down("sm"));
 
   const filteredServices = recycleServices.filter((service) =>
     service.title.toLowerCase().includes(searchTerm.toLowerCase())
@@ -382,13 +389,13 @@ const Selection = () => {
     <Box
       sx={{
         minHeight: "90vh",
-        py: 8,
-        px: 4,
+        py: isMobile ? 4 : 8,
+        px: isMobile ? 2 : 4,
         background: "#FFFFFF",
       }}
     >
       <Typography
-        variant="h2"
+        variant={isMobile ? "h4" : "h2"}
         sx={{
           textAlign: "center",
           mb: 6,
@@ -401,7 +408,15 @@ const Selection = () => {
         What are we Recycling Today?
       </Typography>
 
-      <Box sx={{ maxWidth: 600, mx: "auto", mb: 6, backgroundColor: "white" }}>
+      <Box
+        sx={{
+          maxWidth: isMobile ? "100%" : 600,
+          mx: "auto",
+          mb: 6,
+          px: isMobile ? 2 : 0,
+          backgroundColor: "white",
+        }}
+      >
         <TextField
           fullWidth
           variant="outlined"
@@ -432,7 +447,7 @@ const Selection = () => {
         />
       </Box>
 
-      <Grid container spacing={4}>
+      <Grid container spacing={isMobile ? 2 : 4}>
         {filteredServices.map((service, index) => (
           <Grid item xs={12} sm={6} md={3} key={index}>
             <ServiceCard {...service} />
