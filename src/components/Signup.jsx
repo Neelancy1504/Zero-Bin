@@ -52,7 +52,8 @@ const Signup = () => {
           },
         ]);
 
-        if (insertError) throw insertError;
+        if (insertError)
+          setMessage("Check your email for the confirmation link!");
       }
 
       setMessage("Check your email for the confirmation link!");

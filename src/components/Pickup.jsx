@@ -21,7 +21,6 @@ const PickupBooking = () => {
   const [timeSlot, setTimeSlot] = useState("");
   const [vehicleType, setVehicleType] = useState("");
   const [loading, setloading] = useState("");
-
   const onSubmit = async () => {
     if (!address || !date || !timeSlot || !vehicleType) {
       alert("Please fill in all fields");
@@ -46,6 +45,11 @@ const PickupBooking = () => {
 
       if (result.success) {
         alert("Pickup scheduled successfully!");
+        // Reset all form fields
+        setAddress("");
+        setDate("");
+        setTimeSlot("");
+        setVehicleType("");
       } else {
         alert("Failed to schedule pickup: " + result.msg);
       }
@@ -56,6 +60,40 @@ const PickupBooking = () => {
       setloading(false);
     }
   };
+  // const onSubmit = async () => {
+  //   if (!address || !date || !timeSlot || !vehicleType) {
+  //     alert("Please fill in all fields");
+  //     return;
+  //   }
+
+  //   try {
+  //     setloading(true);
+  //     const {
+  //       data: { user },
+  //     } = await supabase.auth.getUser();
+
+  //     const pickup = {
+  //       address,
+  //       date,
+  //       timeslot: timeSlot,
+  //       vehicle: vehicleType,
+  //       userid: user.id,
+  //     };
+
+  //     const result = await createPickup(pickup);
+
+  //     if (result.success) {
+  //       alert("Pickup scheduled successfully!");
+  //     } else {
+  //       alert("Failed to schedule pickup: " + result.msg);
+  //     }
+  //   } catch (error) {
+  //     console.error("Error scheduling pickup:", error);
+  //     alert("Failed to schedule pickup");
+  //   } finally {
+  //     setloading(false);
+  //   }
+  // };
 
   const PRICING = {
     "2-wheeler": 50,
