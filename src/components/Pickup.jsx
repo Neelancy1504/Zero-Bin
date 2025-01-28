@@ -22,90 +22,6 @@ const PickupBooking = () => {
   const [vehicleType, setVehicleType] = useState("");
   const [loading, setloading] = useState("");
 
-  // const onSubmit = async () => {
-  //   // Validate all fields
-  //   if (!address || !date || !timeSlot || !vehicleType) {
-  //     alert("Please fill in all fields");
-  //     return;
-  //   }
-
-  //   try {
-  //     setloading(true);
-
-  //     // Get the current user's ID (assuming you have user authentication)
-  //     const { data: userData } = await supabase.auth.getUser();
-  //     const userId = userData.user.id;
-
-  //     // Insert pickup data into the pickup table
-  //     const { data, error } = await supabase
-  //       .from("pickup")
-  //       .insert({
-  //         timeslot: timeSlot,
-  //         date: date,
-  //         vehicle: vehicleType,
-  //         userid: userId,
-  //         address: address,
-  //       })
-  //       .select();
-
-  //     if (error) throw error;
-
-  //     // Success handling
-  //     alert(
-  //       `Pickup Confirmed!\nAddress: ${address}\nDate: ${date}\nTime: ${timeSlot}\nVehicle: ${vehicleType}\nTotal Cost: $${calculateTotalCost()}`
-  //     );
-
-  //     // Reset form fields
-  //     setAddress("");
-  //     setDate("");
-  //     setTimeSlot("");
-  //     setVehicleType("");
-  //   } catch (error) {
-  //     console.error("Error creating pickup:", error);
-  //     alert("Failed to create pickup: " + error.message);
-  //   } finally {
-  //     setloading(false);
-  //   }
-  // };
-
-  // const onSubmit = async () => {
-  //   if (!address || !date || !timeSlot || !vehicleType) {
-  //     alert("Please fill in all fields");
-  //     return;
-  //   }
-
-  //   try {
-  //     setloading(true);
-  //     // Get the current user's ID (assuming you have user authentication)
-  //     const { data: userData } = await supabase.auth.getUser();
-  //     const userId = userData.user.id;
-  //     const {
-  //       data: { user },
-  //     } = await supabase.auth.getUser();
-
-  //     const pickup = {
-  //       address,
-  //       date,
-  //       timeslot: timeSlot,
-  //       vehicle: vehicleType,
-  //       userid: userId,
-  //     };
-
-  //     const result = await createPickup(pickup);
-
-  //     if (result.success) {
-  //       alert("Pickup scheduled successfully! You earned 50 points!");
-  //     } else {
-  //       alert("Failed to schedule pickup: " + result.msg);
-  //     }
-  //   } catch (error) {
-  //     console.error("Error scheduling pickup:", error);
-  //     alert("Failed to schedule pickup");
-  //   } finally {
-  //     setloading(false);
-  //   }
-  // };
-
   const onSubmit = async () => {
     if (!address || !date || !timeSlot || !vehicleType) {
       alert("Please fill in all fields");
@@ -129,7 +45,7 @@ const PickupBooking = () => {
       const result = await createPickup(pickup);
 
       if (result.success) {
-        alert("Pickup scheduled successfully! You earned 50 points!");
+        alert("Pickup scheduled successfully!");
       } else {
         alert("Failed to schedule pickup: " + result.msg);
       }
@@ -214,7 +130,7 @@ const PickupBooking = () => {
             </FormControl>
 
             <Typography variant="h6">
-              Total Cost: ${calculateTotalCost()}
+              Total Cost: ₹{calculateTotalCost()}
             </Typography>
 
             <Button
