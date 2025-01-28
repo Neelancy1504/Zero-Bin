@@ -229,7 +229,7 @@ const LocationCard = ({ location }) => (
             variant="h5"
             sx={{
               fontWeight: "bold",
-              background: "linear-gradient(45deg, #00ff95 30%, #00e5ff 90%)",
+              background: "#000000",
               WebkitBackgroundClip: "text",
               WebkitTextFillColor: "transparent",
             }}
@@ -287,10 +287,12 @@ const LocationCard = ({ location }) => (
                 window.open(`tel:${location.formatted_phone_number}`)
               }
               sx={{
-                background: "linear-gradient(45deg, #00ff95 30%, #00e5ff 90%)",
-                color: "#000",
+                bgcolor: "#2E7D32",
+                px: 4,
+                py: 1.5,
+                borderRadius: "20px",
                 "&:hover": {
-                  boxShadow: "0 0 15px rgba(0, 255, 149, 0.5)",
+                  bgcolor: "#1B5E20",
                 },
               }}
             >
