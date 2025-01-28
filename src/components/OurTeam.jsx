@@ -62,6 +62,21 @@ const OurTeam = () => {
 
   const teamMembers = [
     {
+      name: "Sahil Kumar",
+      image:
+        "https://lh3.googleusercontent.com/pw/AP1GczNnyinLAaRter4eCA6vIS2Ntks_plxKLxlYnn0rfgEsCSla8jQ7-ahUf0KPjOKSKGW5WFKn4NQOP8sXGkGbVGulmmqFFALjLrzqex-bhRy8kpNVRvCDzk-wkWg8sbwidnXhxZlctF9pIC-OAPDQ3X2q6Q=w591-h887-s-no-gm?authuser=0", // Replace with actual image path
+      description: (
+        <Typography sx={{ textAlign: "left" }}>
+          I am a student at Maharaja Surajmal Institute of Technology and a
+          skilled cross-platform developer specializing in React Native with
+          backend expertise, currently serving as the Vice President of ISTE
+          MSIT, demonstrating leadership and technical prowess in innovative
+          software development.
+        </Typography>
+      ),
+      linkedIn: "https://www.linkedin.com/in/sahil-kumar-b42a4a289/",
+    },
+    {
       name: "Neelancy Nain",
       image:
         "https://lh3.googleusercontent.com/pw/AP1GczO18cUFXGloaMwiiamLr-nYtjuOY3MG7PbhVCFB6s-ZK6XPHc_FJDX2pMq-ZRDthPcQI6tdVu-37VPo7W3ZJEwaGXtjmLI0tE_40F6dfKnRaAbBOkmQrssMPyThiQV5ZyWyTiRztno1p2nERaFTStLnmg=w665-h887-s-no-gm?authuser=0", // Replace with actual image path
@@ -76,21 +91,6 @@ const OurTeam = () => {
         </Typography>
       ),
       linkedIn: "https://www.linkedin.com/in/neelancy-nain-365ba5256/", // Replace with actual LinkedIn URL
-    },
-    {
-      name: "Sahil Kumar",
-      image:
-        "https://lh3.googleusercontent.com/pw/AP1GczNnyinLAaRter4eCA6vIS2Ntks_plxKLxlYnn0rfgEsCSla8jQ7-ahUf0KPjOKSKGW5WFKn4NQOP8sXGkGbVGulmmqFFALjLrzqex-bhRy8kpNVRvCDzk-wkWg8sbwidnXhxZlctF9pIC-OAPDQ3X2q6Q=w591-h887-s-no-gm?authuser=0", // Replace with actual image path
-      description: (
-        <Typography sx={{ textAlign: "left" }}>
-          I am a student at Maharaja Surajmal Institute of Technology and a
-          skilled cross-platform developer specializing in React Native with
-          backend expertise, currently serving as the Vice President of ISTE
-          MSIT, demonstrating leadership and technical prowess in innovative
-          software development.
-        </Typography>
-      ),
-      linkedIn: "https://www.linkedin.com/in/sahil-kumar-b42a4a289/",
     },
   ];
 

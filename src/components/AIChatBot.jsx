@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useRef } from "react";
 import {
   Fab,
   Drawer,
@@ -7,6 +7,7 @@ import {
   IconButton,
   Paper,
   Typography,
+  CircularProgress,
 } from "@mui/material";
 import {
   Chat as ChatIcon,
@@ -14,11 +15,14 @@ import {
   Send as SendIcon,
   Image as ImageIcon,
 } from "@mui/icons-material";
+import GeminiService from "./GeminiService";
+import assistantIcon from "./images/assistant.png";
 
 const AIChatbot = () => {
   const [open, setOpen] = useState(false);
   const [message, setMessage] = useState("");
   const [imageFile, setImageFile] = useState(null);
+  const [loading, setLoading] = useState(false);
   const [messages, setMessages] = useState([
     {
       text: "Hi there! I'm your AI assistant. How can I help you today?",
@@ -26,172 +30,166 @@ const AIChatbot = () => {
     },
   ]);
 
-  const handleSend = () => {
-    if (message.trim() || imageFile) {
-      const newMessage = {
-        text: message,
-        sender: "user",
-        image: imageFile,
-      };
+  const handleSendMessage = async () => {
+    if (message.trim() === "" && !imageFile) return;
 
-      setMessages([...messages, newMessage]);
+    const newMessage = { text: message, sender: "user" };
+    setMessages((prev) => [...prev, newMessage]);
+    setMessage("");
+    setLoading(true);
 
-      const aiResponse = {
-        text: "I received your message. How can I assist you further?",
-        sender: "ai",
-      };
-
-      setTimeout(() => {
-        setMessages((prev) => [...prev, aiResponse]);
-      }, 1000);
-
-      setMessage("");
+    try {
+      const response = await GeminiService.getGeminiResponse(
+        message,
+        imageFile
+      );
+      setMessages((prev) => [...prev, { text: response, sender: "ai" }]);
+    } catch (error) {
+      setMessages((prev) => [
+        ...prev,
+        {
+          text: "Sorry, I encountered an error. Please try again.",
+          sender: "ai",
+        },
+      ]);
+    } finally {
+      setLoading(false);
       setImageFile(null);
     }
   };
 
   const handleImageUpload = (event) => {
     const file = event.target.files[0];
-    if (file) {
-      setImageFile(URL.createObjectURL(file));
+    if (file && file.type.startsWith("image/")) {
+      setImageFile(file);
+    }
+  };
+
+  const handleKeyPress = (event) => {
+    if (event.key === "Enter" && !event.shiftKey) {
+      event.preventDefault();
+      handleSendMessage();
     }
   };
 
   return (
-    <>
+    <div>
       <Fab
-        color="primary"
-        aria-label="chat"
-        onClick={() => setOpen(!open)}
+        color="blue"
+        onClick={() => setOpen(true)}
         sx={{
           position: "fixed",
           bottom: 16,
-          left: 16,
-          zIndex: 1000,
-        }}
-      >
-        <ChatIcon />
-      </Fab>
-
-      <Drawer
-        anchor="bottom"
-        open={open}
-        onClose={() => setOpen(false)}
-        PaperProps={{
-          sx: {
-            height: "50vh",
-            borderTopLeftRadius: 20,
-            borderTopRightRadius: 20,
-            maxWidth: 400,
-            margin: "auto",
+          right: 16,
+          overflow: "hidden",
+          "& img": {
+            width: "60%",
+            height: "60%",
+            objectFit: "cover",
           },
         }}
       >
+        <img src={assistantIcon} alt="AI Assistant" />
+      </Fab>
+      {/* <Fab
+        color="primary"
+        onClick={() => setOpen(true)}
+        sx={{ position: "fixed", bottom: 16, right: 16 }}
+      >
+        <ChatIcon />
+      </Fab> */}
+      <Drawer anchor="right" open={open} onClose={() => setOpen(false)}>
         <Box
-          sx={{
-            display: "flex",
-            flexDirection: "column",
-            height: "100%",
-          }}
+          p={2}
+          width={400}
+          height="100%"
+          display="flex"
+          flexDirection="column"
         >
           <Box
-            sx={{
-              display: "flex",
-              justifyContent: "space-between",
-              p: 2,
-              borderBottom: "1px solid #eee",
-            }}
+            display="flex"
+            justifyContent="space-between"
+            alignItems="center"
           >
-            <Typography variant="h6">AI Assistant</Typography>
+            <Typography variant="h6">AI Assistant Powered by Gemini</Typography>
             <IconButton onClick={() => setOpen(false)}>
               <CloseIcon />
             </IconButton>
           </Box>
 
           <Box
+            flex={1}
+            mt={2}
             sx={{
-              flexGrow: 1,
               overflowY: "auto",
-              p: 2,
+              display: "flex",
+              flexDirection: "column",
+              gap: 1,
             }}
           >
             {messages.map((msg, index) => (
               <Paper
                 key={index}
+                elevation={1}
                 sx={{
                   p: 2,
-                  mb: 2,
+                  maxWidth: "85%",
                   alignSelf: msg.sender === "user" ? "flex-end" : "flex-start",
-                  bgcolor: msg.sender === "user" ? "primary.light" : "grey.200",
-                  color: msg.sender === "user" ? "white" : "black",
-                  maxWidth: "70%",
+                  backgroundColor:
+                    msg.sender === "user"
+                      ? "primary.light"
+                      : "background.paper",
+                  color: msg.sender === "user" ? "white" : "text.primary",
                 }}
               >
-                {msg.image && (
-                  <img
-                    src={msg.image}
-                    alt="Uploaded"
-                    style={{
-                      maxWidth: "100%",
-                      borderRadius: 8,
-                      marginBottom: 8,
-                    }}
-                  />
-                )}
-                <Typography>{msg.text}</Typography>
+                <Typography variant="body1">{msg.text}</Typography>
               </Paper>
             ))}
           </Box>
 
           {imageFile && (
-            <Box sx={{ p: 2 }}>
-              <img
-                src={imageFile}
-                alt="Preview"
-                style={{
-                  maxWidth: 100,
-                  borderRadius: 8,
-                }}
-              />
+            <Box mt={1}>
+              <Typography variant="caption" color="primary">
+                Image selected: {imageFile.name}
+              </Typography>
             </Box>
           )}
 
-          <Box
-            sx={{
-              display: "flex",
-              p: 2,
-              gap: 1,
-            }}
-          >
-            <input
-              accept="image/*"
-              style={{ display: "none" }}
-              id="raised-button-file"
-              type="file"
-              onChange={handleImageUpload}
-            />
-            <label htmlFor="raised-button-file">
-              <IconButton component="span">
-                <ImageIcon />
-              </IconButton>
-            </label>
-
+          <Box display="flex" alignItems="center" mt={2}>
             <TextField
               fullWidth
               variant="outlined"
-              placeholder="Type your message..."
               value={message}
               onChange={(e) => setMessage(e.target.value)}
-              onKeyPress={(e) => e.key === "Enter" && handleSend()}
+              onKeyPress={handleKeyPress}
+              placeholder="Type your message..."
+              disabled={loading}
+              multiline
+              maxRows={4}
             />
-
-            <IconButton onClick={handleSend}>
-              <SendIcon />
+            <input
+              accept="image/*"
+              style={{ display: "none" }}
+              id="icon-button-file"
+              type="file"
+              onChange={handleImageUpload}
+            />
+            <label htmlFor="icon-button-file">
+              <IconButton color="primary" component="span" disabled={loading}>
+                <ImageIcon />
+              </IconButton>
+            </label>
+            <IconButton
+              color="primary"
+              onClick={handleSendMessage}
+              disabled={loading || (message.trim() === "" && !imageFile)}
+            >
+              {loading ? <CircularProgress size={24} /> : <SendIcon />}
             </IconButton>
           </Box>
         </Box>
       </Drawer>
-    </>
+    </div>
   );
 };
 
