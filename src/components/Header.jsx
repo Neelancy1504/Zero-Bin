@@ -692,7 +692,7 @@ const Header = () => {
                 onClick={() => navigate("/ecopoints")}
               >
                 <MonetizationOnIcon sx={{ color: "#FFD700" }} />
-                Your Ecopoints
+                My Ecopoints
               </Button>
             )}
           </Box>
