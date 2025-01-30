@@ -28,38 +28,74 @@ const Signup = () => {
   //   }
   // };
 
+  // const handleSignUp = async (e) => {
+  //   e.preventDefault();
+  //   setLoading(true);
+  //   try {
+  //     // Sign up the user
+  //     const { data: signUpData, error: signUpError } =
+  //       await supabase.auth.signUp({
+  //         email,
+  //         password,
+  //       });
+
+  //     if (signUpError) throw signUpError;
+
+  //     // Insert into the users table
+  //     const userId = signUpData.user?.id; // Get the user ID from the signed-up user
+  //     if (userId) {
+  //       const { error: insertError } = await supabase.from("users").insert([
+  //         {
+  //           userid: userId, // Insert the user ID
+  //           name: name, // Replace this with actual full name input
+  //           email: email, // Use the email entered during signup
+  //         },
+  //       ]);
+
+  //       if (insertError)
+  //         setMessage("Check your email for the confirmation link!");
+  //     }
+
+  //     setMessage("Check your email for the confirmation link!");
+  //   } catch (error) {
+  //     console.error("Sign-up error:", error);
+  //     setMessage(error.message);
+  //   } finally {
+  //     setLoading(false);
+  //   }
+  // };
   const handleSignUp = async (e) => {
     e.preventDefault();
     setLoading(true);
+
+    // Basic validation
+    if (!name || !email || !password) {
+      setMessage("Please fill in all fields.");
+      setLoading(false);
+      return;
+    }
+
     try {
       // Sign up the user
-      const { data: signUpData, error: signUpError } =
-        await supabase.auth.signUp({
-          email,
-          password,
-        });
+      const { error: signUpError } = await supabase.auth.signUp({
+        email,
+        password,
+        options: {
+          data: {
+            name: name, // Store the name in the auth user's metadata
+          },
+        },
+      });
 
       if (signUpError) throw signUpError;
 
-      // Insert into the users table
-      const userId = signUpData.user?.id; // Get the user ID from the signed-up user
-      if (userId) {
-        const { error: insertError } = await supabase.from("users").insert([
-          {
-            userid: userId, // Insert the user ID
-            name: name, // Replace this with actual full name input
-            email: email, // Use the email entered during signup
-          },
-        ]);
-
-        if (insertError)
-          setMessage("Check your email for the confirmation link!");
-      }
-
       setMessage("Check your email for the confirmation link!");
+      setTimeout(() => {
+        navigate("/login"); // Redirect to login page after successful sign-up
+      }, 2000);
     } catch (error) {
       console.error("Sign-up error:", error);
-      setMessage(error.message);
+      setMessage(error.message || "An error occurred during sign-up.");
     } finally {
       setLoading(false);
     }

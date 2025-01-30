@@ -1,4 +1,5 @@
 import { useState, useEffect } from "react";
+import { useNavigate } from "react-router-dom";
 import {
   Box,
   Typography,
@@ -50,6 +51,7 @@ const rewardOptions = [
       "https://cdn.shopify.com/s/files/1/0405/5747/8041/files/Gemini_Generated_Image_o8pjr8o8pjr8o8pj_480x480.jpg?v=1724908609",
   },
 ];
+
 const RewardCard = ({ reward, userPoints, onRedeem }) => {
   const canRedeem = userPoints >= reward.points;
 
@@ -122,11 +124,14 @@ const EcoPoints = () => {
   const [openDialog, setOpenDialog] = useState(false);
   const [openSnackbar, setOpenSnackbar] = useState(false);
   const [error, setError] = useState(null);
+  const navigate = useNavigate();
 
   useEffect(() => {
     fetchUserPoints();
   }, []);
-
+  const handleClick = () => {
+    navigate("/leaderboard"); // Navigate to the Leaderboard page
+  };
   // const fetchUserPoints = async () => {
   //   try {
   //     setLoading(true);

@@ -1,3 +1,47 @@
+// import React, { useState, useEffect } from "react";
+// import { Card, CardContent, Typography, Chip, Box } from "@mui/material";
+// import supabase from "../../helpers/supabase";
+
+// const PickupList = () => {
+//   const [pickups, setPickups] = useState([]);
+
+//   useEffect(() => {
+//     const fetchUserPickups = async () => {
+//       const { data: userData } = await supabase.auth.getUser();
+//       const userId = userData.user.id;
+
+//       const { data, error } = await supabase
+//         .from("pickup")
+//         .select("*")
+//         .eq("userid", userId);
+
+//       if (error) throw error;
+//       setPickups(data);
+//     };
+
+//     fetchUserPickups();
+//   }, []);
+
+//   return (
+//     <Box>
+//       {pickups.map((pickup) => (
+//         <Card key={pickup.id} sx={{ mb: 2 }}>
+//           <CardContent>
+//             <Typography variant="h6">{pickup.recycling_center_name}</Typography>
+//             <Typography variant="body2">
+//               Address: {pickup.recycling_center_address}
+//             </Typography>
+//             <Typography variant="body2">Date: {pickup.date}</Typography>
+//             <Typography variant="body2">Time: {pickup.timeslot}</Typography>
+//             <Typography variant="body2">Vehicle: {pickup.vehicle}</Typography>
+//           </CardContent>
+//         </Card>
+//       ))}
+//     </Box>
+//   );
+// };
+// export default PickupList;
+
 import React, { useState, useEffect } from "react";
 import { Card, CardContent, Typography, Chip, Box } from "@mui/material";
 import supabase from "../../helpers/supabase";
@@ -82,7 +126,12 @@ const PickupList = () => {
               }}
             >
               <Box>
-                <Typography variant="h6">{pickup.address}</Typography>
+                <Typography variant="h6">
+                  {pickup.recycling_center_name}
+                </Typography>
+                <Typography variant="body2" color="text.secondary">
+                  Address: {pickup.recycling_center_address}
+                </Typography>
                 <Typography variant="body2" color="text.secondary">
                   Date: {pickup.date} | Time: {pickup.timeslot}
                 </Typography>
@@ -90,7 +139,11 @@ const PickupList = () => {
                   Vehicle: {pickup.vehicle}
                 </Typography>
               </Box>
-              <Chip label="Scheduled" color="primary" size="small" />
+              <Chip
+                label={pickup.status || "Scheduled"} // Default to "Scheduled" if status is not provided
+                color={getStatusColor(pickup.status || "Scheduled")}
+                size="small"
+              />
             </Box>
           </CardContent>
         </Card>

@@ -21,7 +21,8 @@ import AIChatbot from "./components/AIChatBot";
 import RewardsPage from "./components/Rewards";
 import OurTeam from "./components/OurTeam";
 import ScrollToTop from "./components/ScrollToTop";
-
+import Leaderboard from "./components/LeaderBoard";
+import gamegirl2 from "./components/images/Gamegirl2.jpg";
 // Create a Material Design 3 dark theme with neon accents
 const theme = createTheme({
   typography: {
@@ -118,7 +119,9 @@ const theme = createTheme({
     },
   },
 });
-
+const handleImageClick = () => {
+  window.open("https://waste-segregation-game.vercel.app/", "_blank"); // Open Google in a new tab
+};
 function App() {
   return (
     <Router>
@@ -155,6 +158,32 @@ function App() {
                   <Services />
                   <DirectHelp />
                   <OurTeam />
+                  <div
+                    style={{
+                      display: "flex",
+                      justifyContent: "center",
+                      margin: "0px 0",
+                    }}
+                  >
+                    <img
+                      src={gamegirl2} // Use imported image
+                      alt="Game Girl"
+                      style={{
+                        width: "700px", // Set the desired width
+                        height: "auto", // Maintain aspect ratio
+                        cursor: "pointer",
+                        transition: "transform 0.3s ease-in-out",
+                        objectFit: "contain", // Ensures the image scales proportionally
+                      }}
+                      onMouseEnter={(e) =>
+                        (e.currentTarget.style.transform = "scale(1.1)")
+                      }
+                      onMouseLeave={(e) =>
+                        (e.currentTarget.style.transform = "scale(1)")
+                      }
+                      onClick={handleImageClick}
+                    />
+                  </div>
                   <Footer />
                 </main>
               }
@@ -172,6 +201,7 @@ function App() {
             <Route path="/pickuplist" element={<PickupList />} />
             <Route path="/rewards" element={<RewardsPage />} />
             <Route path="/ourteam" element={<OurTeam />} />
+            <Route path="/leaderboard" element={<Leaderboard />} />
           </Routes>
         </div>
       </ThemeProvider>

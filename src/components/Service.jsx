@@ -207,7 +207,7 @@ const getPlaceDetails = async (placeId) => {
   }
 };
 
-const LocationCard = ({ location }) => (
+const LocationCard = ({ location, onArrangePickup }) => (
   <Card
     sx={{
       display: "flex",
@@ -299,6 +299,22 @@ const LocationCard = ({ location }) => (
               Call Now
             </Button>
           )}
+          <Button
+            variant="contained"
+            startIcon={<LocalShippingIcon />}
+            onClick={() => onArrangePickup(location)}
+            sx={{
+              bgcolor: "#4CAF50",
+              px: 4,
+              py: 1.5,
+              borderRadius: "20px",
+              "&:hover": {
+                bgcolor: "#388E3C",
+              },
+            }}
+          >
+            Arrange Pickup
+          </Button>
         </Box>
       </CardContent>
     </Box>
@@ -493,6 +509,7 @@ const Service = () => {
   const autocompleteRef = useRef(null);
   const isCommunityImpact = title === "Give. Share. Care.";
   const navigate = useNavigate();
+
   const handleLocationSelect = async (place) => {
     try {
       setLoading(true);
@@ -533,6 +550,10 @@ const Service = () => {
     }
   };
 
+  const handleArrangePickup = (location) => {
+    navigate("/pickupbooking", { state: { location } });
+  };
+ 
   return (
     <Box
       sx={{
@@ -558,14 +579,13 @@ const Service = () => {
         </Typography>
 
         {/* Arrange Pickup Button (hidden for Community Impact page) */}
-        {title !== "Community Impact" && (
+        {title !== "Give. Share. Care." && (
           <Box sx={{ display: "flex", justifyContent: "center", mb: 4 }}>
             <Button
               variant="contained"
               color="success"
               size="large"
-              onClick={() => navigate("/pickupbooking")}
-              // onClick={() => alert("Pickup arranged!")} // Replace this with your handler
+              onClick={() => setShowLocationDialog(true)}
               sx={{
                 background: "linear-gradient(45deg, #2E7D32 30%, #4CAF50 90%)",
                 color: "#fff",
@@ -578,7 +598,7 @@ const Service = () => {
                 },
               }}
             >
-              Arrange Pickup
+              Find Recycling Centers
             </Button>
           </Box>
         )}
@@ -603,7 +623,11 @@ const Service = () => {
             {isCommunityImpact
               ? realNGOs.map((ngo) => <NGOCard key={ngo.id} ngo={ngo} />)
               : recyclingCenters.map((center, index) => (
-                  <LocationCard key={index} location={center} />
+                  <LocationCard
+                    key={index}
+                    location={center}
+                    onArrangePickup={handleArrangePickup}
+                  />
                 ))}
           </Box>
         )}
@@ -613,3 +637,134 @@ const Service = () => {
 };
 
 export default Service;
+
+// const Service = () => {
+//   const location = useLocation();
+//   const { title } = location.state || { title: "Recycling Service" };
+//   const [searchLocation, setSearchLocation] = useState("");
+//   const [recyclingCenters, setRecyclingCenters] = useState([]);
+//   const [loading, setLoading] = useState(false);
+//   const [error, setError] = useState(null);
+//   const [showLocationDialog, setShowLocationDialog] = useState(true);
+//   const mapRef = useRef(null);
+//   const autocompleteRef = useRef(null);
+//   const isCommunityImpact = title === "Give. Share. Care.";
+//   const navigate = useNavigate();
+//   const handleLocationSelect = async (place) => {
+//     try {
+//       setLoading(true);
+
+//       const { geometry, place_id } = place;
+//       const { lat, lng } = geometry.location;
+
+//       // Search for nearby recycling centers
+//       const results = await searchNearbyPlaces(
+//         lat,
+//         lng,
+//         `${title.toLowerCase()} recycling center`
+//       );
+
+//       if (!results || results.length === 0) {
+//         setError("No recycling centers found in this area");
+//         setLoading(false);
+//         return;
+//       }
+
+//       // Check if results already contain sufficient details
+//       const validResults = results.slice(0, 5);
+
+//       // If additional details are needed
+//       const detailedResults = await Promise.all(
+//         validResults.map((result) =>
+//           result.detailsAvailable ? result : getPlaceDetails(result.place_id)
+//         )
+//       );
+
+//       setRecyclingCenters(detailedResults.filter((result) => result !== null));
+//       setShowLocationDialog(false);
+//       setLoading(false);
+//     } catch (error) {
+//       console.error("Error in handleLocationSelect:", error);
+//       setError("Failed to find recycling centers. Please try again.");
+//       setLoading(false);
+//     }
+//   };
+
+//   return (
+//     <Box
+//       sx={{
+//         minHeight: "90vh",
+//         py: 8,
+//         px: 4,
+//         background: "#FFFFFF",
+//       }}
+//     >
+//       <Box sx={{ maxWidth: 1200, mx: "auto" }}>
+//         <Typography
+//           variant="h2"
+//           sx={{
+//             textAlign: "center",
+//             mb: 3,
+//             fontWeight: "bold",
+//             background: "linear-gradient(45deg, #2E7D32 30%, #4CAF50 90%)",
+//             WebkitBackgroundClip: "text",
+//             WebkitTextFillColor: "transparent",
+//           }}
+//         >
+//           {title}
+//         </Typography>
+
+//         {/* Arrange Pickup Button (hidden for Community Impact page) */}
+//         {title !== "Community Impact" && (
+//           <Box sx={{ display: "flex", justifyContent: "center", mb: 4 }}>
+//             <Button
+//               variant="contained"
+//               color="success"
+//               size="large"
+//               onClick={() => navigate("/pickupbooking")}
+//               // onClick={() => alert("Pickup arranged!")} // Replace this with your handler
+//               sx={{
+//                 background: "linear-gradient(45deg, #2E7D32 30%, #4CAF50 90%)",
+//                 color: "#fff",
+//                 px: 4,
+//                 py: 1.5,
+//                 borderRadius: "30px",
+//                 "&:hover": {
+//                   background:
+//                     "linear-gradient(45deg, #1B5E20 30%, #388E3C 90%)",
+//                 },
+//               }}
+//             >
+//               Arrange Pickup
+//             </Button>
+//           </Box>
+//         )}
+
+//         {!isCommunityImpact && showLocationDialog && (
+//           <LocationSearchDialog
+//             onLocationSelect={handleLocationSelect}
+//             onClose={() => setShowLocationDialog(false)}
+//           />
+//         )}
+
+//         {loading ? (
+//           <Box sx={{ display: "flex", justifyContent: "center", py: 4 }}>
+//             <CircularProgress />
+//           </Box>
+//         ) : error ? (
+//           <Typography color="error" textAlign="center">
+//             {error}
+//           </Typography>
+//         ) : (
+//           <Box>
+//             {isCommunityImpact
+//               ? realNGOs.map((ngo) => <NGOCard key={ngo.id} ngo={ngo} />)
+//               : recyclingCenters.map((center, index) => (
+//                   <LocationCard key={index} location={center} />
+//                 ))}
+//           </Box>
+//         )}
+//       </Box>
+//     </Box>
+//   );
+// };
