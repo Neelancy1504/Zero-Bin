@@ -23,6 +23,7 @@ import OurTeam from "./components/OurTeam";
 import ScrollToTop from "./components/ScrollToTop";
 import Leaderboard from "./components/LeaderBoard";
 import gamegirl2 from "./components/images/Gamegirl2.jpg";
+import ShiprocketPickupBooking from "./components/ShipRocketPickup";
 // Create a Material Design 3 dark theme with neon accents
 const theme = createTheme({
   typography: {
@@ -202,6 +203,10 @@ function App() {
             <Route path="/rewards" element={<RewardsPage />} />
             <Route path="/ourteam" element={<OurTeam />} />
             <Route path="/leaderboard" element={<Leaderboard />} />
+            <Route
+              path="/pickupbookingsr"
+              element={<ShiprocketPickupBooking />}
+            />
           </Routes>
         </div>
       </ThemeProvider>
