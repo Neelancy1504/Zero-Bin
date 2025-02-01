@@ -1,15 +1,14 @@
-
 import { createClient } from "@supabase/supabase-js";
 
-const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL;
-const supabaseAnonKey = process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY;
+const supabaseUrl = import.meta.env.VITE_SUPABASE_URL;
+const supabaseAnonKey = import.meta.env.VITE_SUPABASE_ANON_KEY;
+
+console.log("Supabase URL:", supabaseUrl);
+console.log("Supabase Anon Key:", supabaseAnonKey);
+
+if (!supabaseUrl || !supabaseAnonKey) {
+  throw new Error("Supabase URL and Anon Key must be defined in environment variables.");
+}
 
 const supabase = createClient(supabaseUrl, supabaseAnonKey);
 export default supabase;
-
-// const supabaseUrl = "https://olmdgcdchqbpgmkkmvnk.supabase.co";
-// const supabaseAnonKey =
-//   "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Im9sbWRnY2RjaHFicGdta2ttdm5rIiwicm9sZSI6ImFub24iLCJpYXQiOjE3MzgxNzY4NTgsImV4cCI6MjA1Mzc1Mjg1OH0.njL_mjOsx7krTp-h1rnL0C9rHxvFVchYyaVzHS4fTHc";
-
-// const supabase = createClient(supabaseUrl, supabaseAnonKey);
-// export default supabase;
